@@ -1,0 +1,32 @@
+1.
+mysql> select version();
++-------------------------+
+| version()               |
++-------------------------+
+| 5.5.40-0ubuntu0.12.04.1 |
++-------------------------+
+1 row in set (0.00 sec)
+
+2. create database <database_name>;
+   create table <table_name> .....
+
+3. use database_name;
+
+4. insert into table (col1,col2,...) values (val1,val2,..), (valx, valy..);
+   insert into table set col1=val1, col2='val2',....
+
+8. Use 'where' clause to restrict rows returned from select operation
+
+9 LIKE and NOT LIKE are used for pattern matching in strings
+_ and % are the wildcard characters
+Queries using LIKE are slower because they can't take advantage of
+indexes;
+
+10. By default records are returned in an arbitrary order.
+Use the 'order by' clause to force a particular order;
+
+11. Use UPDATE command to modify existing row
+update <table_name> set col1=val1, col2=val2 where <conditions> limit 1;
+
+12. Use DELETE command to delete existing row
+delete from <table_name> where <condition> limit 1;

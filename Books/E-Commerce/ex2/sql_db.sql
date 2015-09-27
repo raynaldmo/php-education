@@ -1,0 +1,1 @@
+CREATE database if not exists coffee_store;

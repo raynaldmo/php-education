@@ -1,0 +1,31 @@
+body {
+    background-color: #fff;
+    color: #1b1b1b;
+    font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, sans-serif;
+}
+table {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 1px solid #c9c9c9;
+}
+th {
+    background-color: #ddd;
+    color: #555;
+    padding: 0.5em 2em;
+}
+td {
+    vertical-align: top;
+    text-align: center;
+    padding: 0.25em 1em;
+}
+td:first-child, td:last-child {
+    text-align: left;
+}
+tr {
+    border-bottom: 1px solid #c9c9c9;
+}
+tr:nth-child(even) {
+    background-color: #e7edf6;
+}

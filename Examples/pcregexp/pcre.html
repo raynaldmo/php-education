@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Testing PCRE</title>
+</head>
+<body>
+
+<form>
+  <p>Regular Expression Pattern: <input type="text" name="pattern" size="40">
+    (include the delimiters)
+  </p>
+  <p>Test Subject: <input type="text" name="subject" size="40">
+  </p>
+  <input type="submit" name="submit" value="Test!" >
+</form>
+
+<script>
+  var body = document.body;
+  var form = document.getElementsByTagName('form')[0];
+  var el1 = document.getElementsByName('pattern')[0];
+  var el2 = document.getElementsByName('subject')[0];
+
+  form.onsubmit = function(evt) {
+
+    evt.preventDefault();
+
+    // debugger;
+
+    // check if existing "status" paragraph  - if so delete
+    var p = document.getElementById('status');
+    if (p) {
+      body.removeChild(p);
+    }
+
+    var fullPat = el1.value;
+
+    var pattern = fullPat.trim().replace(/\//g, '');
+
+    console.log(fullPat, pattern);
+
+    var subject = el2.value;
+    subject = subject.trim();
+
+    var re = new RegExp(pattern);
+    var res = re.test(subject);
+
+    p = document.createElement('p');
+    p.innerHTML = "The result of checking <b>" + fullPat + "</b> against <b>" +
+        subject + '</b> is ' + (res ? "TRUE" : "FALSE");
+    p.id = "status";
+    body.insertBefore(p, form);
+  }
+
+</script>
+</body>
+</html>

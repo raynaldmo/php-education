@@ -1,0 +1,10 @@
+CREATE TABLE accounts (
+account_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+customer_id INT UNSIGNED NOT NULL,
+type ENUM('Checking', 'Savings') NOT NULL,
+balance DECIMAL(10,2) UNSIGNED NOT NULL DEFAULT 0.0,
+PRIMARY KEY (account_id),
+INDEX (customer_id),
+FOREIGN KEY (customer_id) REFERENCES customers (customer_id)
+ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE = INNODB;

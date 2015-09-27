@@ -1,0 +1,35 @@
+1. Normalization is important because it reduces redundancies in the
+database tables.
+
+2. Primary and foreign
+
+5. Four types of indexes
+INDEX
+UNIQUE
+PRIMARY KEY
+FULLTEXT
+
+Indexes should be used in columns that are frequently used in 'where' and
+'order by' clauses.
+Don't index columns that allow NULL values or have a limited set/range of
+values.
+
+6. MyISAM and InnoDB
+Use show engines command to see what the default table type is.
+Default table type for my installation is InnoDB
+
+7. Character set is encoding used for characters and determines what
+languages are supported.
+Collation refers to the rules used for comparing characters in a set
+
+8. UTC is Coordinated Universal Time. UTC time is standard reference by
+which local time can be determined based on time zone information
+
+UTC+4, UTC-3 etc.
+
+9. Foreign key constraints set behavior when records are
+deleted/updated/inserted
+in tables that have a parent-child relationships, i.e tables that have
+foreign keys.
+
+InnoDB table types support foreign key constraints.

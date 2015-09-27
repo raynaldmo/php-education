@@ -1,0 +1,4 @@
+﻿$options['length'] = (isset($options['length'])) ? $options['length'] : 0;
+$options['delimiter'] = (isset($options['delimiter'])) ? $options['delimiter'] : ',';
+$options['enclosure'] = (isset($options['enclosure'])) ? $options['enclosure'] : '"';
+$options['escape'] = (isset($options['escape'])) ? $options['escape'] : '\\';

@@ -1,0 +1,11 @@
+{
+    "repositories": [
+	    {
+	         "type": "pear",
+	         "url": "http://pear2.php.net"
+	    }
+    ],
+    "require": {
+         "pear-pear2.php.net/PEAR2_Text_Markdown": "*"
+    }
+}

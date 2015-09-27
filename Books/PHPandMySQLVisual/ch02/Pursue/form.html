@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form with Check Boxes</title>
+</head>
+
+<body>
+  <form action="./handle_form.php" method="post">
+    <label for="music">Music</label>
+    <input type="checkbox" id="music" name="preferences[]" value="Music">
+    <label for="books">Books</label>
+    <input type="checkbox" id="books" name="preferences[]" value="Books">
+    <label for="movies">Movies</label>
+    <input type="checkbox" id="movies" name="preferences[]" value="Movies">
+    <div>
+      <button type="submit">Submit</button>
+    </div>
+
+  </form>
+</body>
+
+</html>
+

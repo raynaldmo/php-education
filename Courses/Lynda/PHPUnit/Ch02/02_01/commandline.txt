@@ -1,0 +1,26 @@
+//install a package manager (Homebrew)
+ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+
+//change your terminal to the htdocs directory
+cd /Applications/MAMP/htdocs
+
+//install composer
+curl -sS https://getcomposer.org/installer | php
+
+//Or if you don't have curl:
+php -r "readfile('https://getcomposer.org/installer');" | php
+
+//this will read the json file and import the required libraries  
+./composer.phar update –dev
+
+//now to install php unit
+//first we'll need wget
+brew install wget
+
+//
+wget https://phar.phpunit.de/phpunit.phar
+chmod +x phpunit.phar
+mv phpunit.phar /usr/local/bin/phpunit
+
+
+

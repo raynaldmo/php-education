@@ -1,0 +1,10 @@
+﻿<script>
+var rows = document.getElementsByTagName('tr'),
+    pattern = /^(\w+)\s/,
+    firstCell;
+for (var i = 0; i < rows.length; i++) {
+    if (firstCell = rows[i].getElementsByTagName('td')[0]) {
+        firstCell.innerHTML = firstCell.innerHTML.replace(pattern, '<strong>$1</strong> ');
+    }
+}
+</script>

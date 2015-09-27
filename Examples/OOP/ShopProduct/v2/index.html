@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Page for ShopProduct Class (JS version)</title>
+</head>
+
+<body>
+  <p>Test Page for ShopProduct Class (JS version)</p>
+  <div id="summary">
+    <p><strong>Summary Line</strong></p>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="ShopProduct.js"></script>
+  <script src="CdProduct.js"></script>
+
+  <script>
+    window.onload = function() {
+      // closure captures App variable from app.js
+      App.go();
+    };
+  </script>
+</body>
+</html>
+

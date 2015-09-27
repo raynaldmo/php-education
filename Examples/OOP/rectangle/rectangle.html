@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rectangle Class - JavaScript version</title>
+</head>
+
+<body>
+<div id="contents">
+  <h3>Rectangle Class - JavaScript version</h3>
+</div>
+
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="rectangle.js"></script>
+<script>
+  $(function() {
+    var width = 42;
+    var height = 7;
+
+    var $div = $('#contents');
+    var html;
+
+    html = 'With a width of ' + width + ' and a height of ' + height +
+        '...';
+    var $h4 = $('<h4></h4>').html(html);
+    $h4.appendTo($div);
+
+    // var r = new Rectangle(width, height);
+    var r = new Rectangle();
+    r.width = 42;
+    r.height = 7;
+
+    // print area
+    html = 'The area of the rectangle is ' + r.getArea();
+    var $p1 = $('<p></p>').html(html);
+    $p1.appendTo($div);
+
+    // print perimeter
+    html = 'The perimeter of the rectangle is ' + r.getPerimeter();
+    var $p2 = $('<p></p>').html(html);
+    $p2.appendTo($div);
+
+    // test if square
+    html = 'This rectangle is ' + (r.isSquare() ? 'also' : 'not') +
+        ' a square.';
+    var $p3 = $('<p></p>').html(html);
+    $div.append($p3);
+
+    // Square
+    var side = 60;
+    html = 'With a side being ' + side;
+    var $h4_1 = $('<h4></h4>').html(html);
+    $h4_1.appendTo($div);
+
+    var s = new Square(side);
+
+    html = 'With width of ' + s.width + ' and height of ' +
+        s.height;
+
+    var $h4_2 = $('<h4></h4>').html(html);
+    $h4_2.appendTo($div);
+
+    // print area
+    html = 'The area of the square is ' + s.getArea();
+    var $p4 = $('<p></p>').html(html);
+    $p4.appendTo($div);
+
+    // print perimeter
+    html = 'The perimeter of the square is ' + s.getPerimeter();
+    var $p5 = $('<p></p>').html(html);
+    $p5.appendTo($div);
+
+
+  });
+
+  // will cause error since $(function() { }); creates separate scope/namespace
+  // console.log(r);
+
+</script>
+</body>
+</html>
+

@@ -1,0 +1,4 @@
+<h1>Thank You</h1>
+<p>Thanks for uploading your photo<?php if ( $_POST["visitorName"] ) echo ", " . $_POST["visitorName"] ?>!</p>
+<p>Here's your photo:</p>
+<p><img src="photos/<?php echo $_FILES["photo"]["name"] ?>" alt="Photo" /></p>

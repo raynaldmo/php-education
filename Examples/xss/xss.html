@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Cross-Site Scripting (XSS) </title>
+</head>
+
+<body>
+  <h3>Test XSS</h3>
+  <textarea><script>alert('I too am an evil script!')</script></textarea>
+  <button>Test</button>
+  <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+      <script>
+        $('button').click(function(){
+          // When retrieved from server, alert box will pop-up on user's
+          // browser
+          $.get('./xss-evil-script.js', function(resp) {
+            console.log(resp);
+          })
+        });
+      </script>
+  </body>
+</html>
+

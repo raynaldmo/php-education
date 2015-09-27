@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rectangle Class - JavaScript version</title>
+</head>
+
+<body>
+<div id="contents">
+  <h3>Rectangle Class - JavaScript version</h3>
+</div>
+
+<script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="rectangle.js"></script>
+<script>
+  $(function() {
+    var width = 42;
+    var height = 7;
+
+    var $div = $('#contents');
+    var html;
+
+    html = 'With a width of ' + width + ' and a height of ' + height +
+        '...';
+    var $h4 = $('<h4></h4>').html(html);
+    $h4.appendTo($div);
+
+    var r = new Rectangle(width, height);
+
+    // r.setSize(width, height);
+
+    // print area
+    html = 'The area of the rectangle is ' + r.getArea();
+    var $p1 = $('<p></p>').html(html);
+    $p1.appendTo($div);
+
+    // print perimeter
+    html = 'The perimeter of the rectangle is ' + r.getPerimeter();
+    var $p2 = $('<p></p>').html(html);
+    $p2.appendTo($div);
+
+    // test if square
+    html = 'This rectangle is ' + (r.isSquare() ? 'also' : 'not') +
+        ' a square.';
+    var $p3 = $('<p></p>').html(html);
+    $div.append($p3);
+
+  });
+
+  // will cause error since $(function() { }); creates separate scope/namespace
+  // console.log(r);
+
+</script>
+</body>
+</html>
+

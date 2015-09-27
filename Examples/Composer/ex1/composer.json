@@ -1,0 +1,14 @@
+{
+    "name": "raynaldmo/scan",
+    "description": "Scan urls in CSV file",
+    "authors": [
+        {
+            "name": "Raynald Mompoint",
+            "email": "raynaldmo@gmail.com"
+        }
+    ],
+    "require": {
+        "league/csv": "~7.0",
+        "guzzlehttp/guzzle": "~5.2"
+    }
+}

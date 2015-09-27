@@ -1,0 +1,7 @@
+foreach ($rows as $row) {
+    $output .= "<tr>\n";
+    foreach ($row as $item) {
+        $output .= "<td>$item</td>\n";
+    }
+    $output .= "</tr>\n";
+}

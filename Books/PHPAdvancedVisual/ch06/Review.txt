@@ -1,0 +1,127 @@
+1.  Abstract class is template version of a parent class.
+
+- used when instantiating a parent class isn't useful and
+sub-classes that have a 'is a' relationship to the parent abstract class
+are needed.
+
+- abstract classes cannot be instantiated
+- abstract classes are meant to be extended by sub-class(es)
+- abstract methods are defined in abstract class (using abstract keyword)
+and must be implemented by any subclass
+
+- abstract class can implement non-abstract methods and attributes
+
+abstract class Class1 {
+  abstract protected function method1 ($var);
+  abstract protected function method2 ($var);
+
+  protected function method3($var) {
+    // do something
+  }
+
+  protected $attr = 'class1';
+}
+
+class SubClass1 extends Class1 {
+  function __construct($var) {
+    // do something with $var
+  }
+  // Implement abstract method
+  public function method1($var) {
+    // do something with $var
+  }
+
+  // Implement abstract method
+  public function method2($var) {
+    // do something with $var
+  }
+
+}
+
+2. An interface defines a specification for implementing a service.
+Classes that implement interfaces don't necessarily have an 'is a'
+relationship to the interface
+
+- an interface is a pure template
+- an interface establishes a 'contract' for a class that implements
+the interface
+- interface cannot be instantiated
+- all interface methods must be public
+- interface cannot have attributes
+- a class can implement multiple interfaces
+(a class CANNOT inherit from multiple parents)
+
+interface Crud {
+  public function create($data);
+  public function read();
+  public function update($data);
+  public function delete();
+}
+
+class User implements Crud {
+  // implement all interface methods for user management
+
+}
+
+class Posts implements Crud {
+  // implement all interface methods for blog post management
+}
+
+3. Traits allow you add functionality to a class without using
+inheritance.
+
+- Supported in PHP 5.4+
+- think of traits as includes for classes
+(keyword 'use' is used to include trait to a class)
+- traits allow code re-use outside of any class inheritance or class hierarchy
+- traits cannot be instantiated
+- log or debug functions are common usage
+- multiple traits can be used by a class
+(use Trait1, Trait2 ... ;)
+- traits can have abstract methods
+
+trait Logger {
+  public function log($logString) {
+    //....
+  }
+}
+
+class Class1 {
+  use Logger;
+  ......
+  function __construct($str) {
+    $this->log($str);
+  }
+
+}
+
+4. Type hinting is used in a method or a standalone function
+to indicate the data type of method or function parameter
+
+
+5. Namespaces prevent naming collisions between class names.
+
+- namespace is a container/bucket to hold classes, functions and variables
+
+To create a namespace, create file where all class definitions for that
+namespace will be created
+
+- on first line of file
+namespace CompanyName\LibraryName
+
+- define classes
+
+class Class1 { }
+class Class2 { }
+
+- to reference class in application , use fully qualified name
+
+require '/CompanyName/LibraryName/library.php';
+
+$obj = new \CompanyName\LibraryName\Class1();
+
+or
+
+use \CompanyName\LibraryName\Class1;
+$obj = new Class1();
+

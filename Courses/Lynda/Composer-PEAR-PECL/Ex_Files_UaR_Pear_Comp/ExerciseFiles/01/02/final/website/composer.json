@@ -1,0 +1,14 @@
+{
+    "name": "root/website",
+    "description": "Our website",
+    "require": {
+        "dflydev/markdown": "1.x"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joe LeBlanc",
+            "email": "joe@example.com"
+        }
+    ]
+}

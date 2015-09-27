@@ -1,0 +1,20 @@
+<h1>Uploading a Photo</h1>
+
+<p>Please enter your name and choose a photo to upload, then click Send Photo.</p>
+
+<form action="photo_upload.php" method="post" enctype="multipart/form-data">
+  <div style="width: 30em;">
+    <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
+
+    <label for="visitorName">Your name</label>
+    <input type="text" name="visitorName" id="visitorName" value="" />
+
+    <label for="photo">Your photo</label>
+    <input type="file" name="photo" id="photo" value="" />
+
+    <div style="clear: both;">
+      <input type="submit" name="sendPhoto" value="Send Photo" />
+    </div>
+
+  </div>
+</form>

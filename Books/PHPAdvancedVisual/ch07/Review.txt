@@ -1,0 +1,42 @@
+1. A design pattern is a best practice programming approach for solving a
+particular design problem.
+
+2. Design pattern categories
+- Creation patterns create objects
+* Singleton
+* Factory
+* Builder
+* Prototype
+
+- Structural patterns assist the creation and use of complex structures
+* Composite
+* Decorator
+* Proxy
+
+- Behavior patterns deals with how objects communicate and program flow
+* Strategy
+* Observer
+* Template
+
+3. Object creation patterns
+
+- Singleton pattern is used when an application requires a single
+instance of some class. This pattern guarantees this same single
+instance is used by all application components/code
+
+- Factory pattern is useful when the type of object to be
+created isn't known until run-time. It can dynamically create
+class objects based on user or other input.
+
+5. Structural patterns
+
+- Composite pattern is used in situations where a single entity and
+a collection of these entities need the same functionality
+
+Ex. Form and individual form elements need to be displayed,
+validated, added, removed etc.
+
+6. Behavioral patterns
+
+- Strategy pattern allows algorithms to process objects to change
+dynamically

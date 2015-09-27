@@ -1,0 +1,1 @@
+Shows how to load PEAR library using Composer
