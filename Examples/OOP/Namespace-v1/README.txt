@@ -1,0 +1,5 @@
+- namespace usage examples
+- examples use flat directory structure for application file and class files
+- compare to Namespace-v2 directory structure
+- v3 uses autoloading of classes
+  - THIS VERSION DOESN'T QUITE WORK!! DEBUG LATER
