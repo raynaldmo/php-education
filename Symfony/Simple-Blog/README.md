@@ -1,0 +1,1 @@
+See https://symfony.com/doc/3.4/introduction/from_flat_php_to_symfony.html
