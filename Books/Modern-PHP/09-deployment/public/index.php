@@ -1,2 +1,0 @@
-<?php
-echo "Capistrano works!";

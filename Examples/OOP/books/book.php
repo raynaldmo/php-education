@@ -1,19 +1,37 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Books</title>
-</head>
+<?php
+/**
+ * Created by PhpStorm.
+ * User: raynald
+ * Date: 1/3/15
+ * Time: 9:47 PM
+ */
 
-<body>
-  <h3>Books</h3>
-  <?php
+class Book {
+  private $title;
+  private $isbn;
+  private $copies;
 
-    require_once('Book.php');
-    $book = new Book("0615303889");
+  function __construct($isbn) {
+    $this->setIsbn($isbn);
+    $this->getTitle();
+    $this->getNumberCopies();
+  }
 
-  ?>
-</body>
-</html>
+  public function setIsbn($isbn) {
+    $this->isbn = $isbn;
+  }
 
+  public function getTitle() {
+    $this->title = "Easy PHP Websites with the Zend Framework";
+    echo "Title : {$this->title}"."<br>";
+  }
+
+  public function getNumberCopies() {
+    $this->copies = "5";
+    echo "Number copies available: {$this->copies}"."<br>";
+  }
+
+  function __destruct() {
+    print "<p>Book class instance destroyed</p>";
+  }
+} 

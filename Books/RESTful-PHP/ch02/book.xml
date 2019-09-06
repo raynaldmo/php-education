@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<books>
-  <book category="Computers" sub-category="Web Technology">
-    <title>PHP Web Services</title>
-    <author><name>Raynald</name></author>
-  </book>
-</books>

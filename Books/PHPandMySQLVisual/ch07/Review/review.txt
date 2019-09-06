@@ -1,7 +1,0 @@
-1.Inner join and outer join
-
-5. self-join : join a table with itself
-
-6. Aggregate functions are functions that operate on
-all rows of a table (SUM(), AVG() etc.) and return a single
-value
