@@ -1,17 +1,10 @@
 <?php
-// index.php
-$connection = new PDO("mysql:host=localhost;dbname=blog", 'test', 'test');
-
-$result = $connection->query('SELECT post_id, post_title FROM posts');
+// index.php - controller
+ini_set('display_errors', '1');
 
 
-$posts = [];
-
-while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-  $posts[] = $row;
-}
-
-$connection = null;
+require_once 'model.php';
+$posts = get_all_posts();
 
 // include the HTML presentation code
 require_once 'templates/list.php';
