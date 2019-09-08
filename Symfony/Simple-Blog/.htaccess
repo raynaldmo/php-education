@@ -1,0 +1,4 @@
+RewriteEngine on
+Options -MultiViews
+
+RewriteRule ^show/([0-9])$ index.php?id=$1 [L]
