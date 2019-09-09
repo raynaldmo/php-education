@@ -2,22 +2,22 @@
 // index.php -  Front controller
 ini_set('display_errors', '1');
 
+require_once 'vendor/autoload.php';
 
-// load and initialize any global libraries
-require_once 'model.php';
-require_once 'controllers.php';
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-// route the request internally
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-// $uri = '/' . basename($uri);
+$request = Request::createFromGlobals();
 
-if ( '/' === $uri) {
-  list_action();
+$uri = $request->getPathInfo();
+if ('/' === $uri) {
+  $response = list_action();
+} elseif ( (strpos($uri, '/show') !== FALSE) && $request->query->has('id')) {
+  $response = show_action($request->query->get('id'));
+} else {
+  $html = '<html><body><h1>Page Not Found</h1></body></html>';
+  $response = new Response($html, Response::HTTP_NOT_FOUND);
 }
-elseif ( (strpos($uri, '/show') !== FALSE) && isset($_GET['id']) ) {
-  show_action($_GET['id']);
-}
-else {
-  header('HTTP/1.1 404 Not Found');
-  echo '<html><body><h1>Page Not Found</h1></body></html>';
-}
+
+// echo the headers and send the response
+$response->send();
