@@ -1,0 +1,121 @@
+
+Sales Orders Database
+----------------------
+1. “List the customers who ordered a helmet together with the vendors who provide helmets.”
+(Hint: This involves creating a UNION of two complex JOINs.)
+
+You can find the solution in CH10_Customer_Helmets_Vendor_Helmets (91 rows).
+
+Solution:
+
+// 1. Write select for customers that ordered a helmet
+// 2. Write select for vendors that sell helmets
+// 3. Union 1 and 2
+
+select concat(c.CustFirstName,' ',c.CustLastName) as Name,
+p.ProductName,'Customer' as Type
+from Customers as c join Orders as o on (c.CustomerID = o.CustomerID)
+join Order_Details as od on (o.orderNumber = od.orderNumber)
+join Products as p on (od.ProductNumber = p.ProductNumber)
+where p.ProductName like '%helmet%'
+union select v.VendName,p.ProductName,'Vendor' as Type
+from Vendors as v join Product_Vendors as pv on (v.VendorID = pv.VendorID)
+join Products as p on (pv.ProductNumber = p.ProductNumber)
+where p.ProductName like '%helmet%'
+order by Name;
++------------------------+------------------------------+----------+
+| Name                   | ProductName                  | Type     |
++------------------------+------------------------------+----------+
+| Andrew Cencini         | Glide-O-Matic Cycling Helmet | Customer |
+| Andrew Cencini         | Dog Ear Helmet Mount Mirrors | Customer |
+| Andrew Cencini         | Viscount Microshell Helmet   | Customer |
+
+
+Entertainment Agency Database
+------------------------------
+1. “Display a combined list of customers and entertainers.”
+(Hint: Be careful to create an expression for one of the names so that you
+have the same number of columns in both SELECT statements.)
+
+You can find the solution in CH10_Customers_UNION_Entertainers (28 rows).
+
+Solution:
+
+select concat(c.CustFirstName,' ',c.CustLastName) as Name,'Customer' as Type
+    -> from Customers as c
+    -> union
+    -> select EntStageName, 'Entertainer' as Type
+    -> from Entertainers
+    -> order by Name;
++--------------------------+-------------+
+| Name                     | Type        |
++--------------------------+-------------+
+| Carol Peacock Trio       | Entertainer |
+| Carol Viescas            | Customer    |
+| Caroline Coie Cuartet    | Entertainer |
+
+....
+
+2. “Produce a list of customers who like contemporary music together with a
+list of entertainers who play contemporary music.”
+(Hint: You need to UNION two complex JOINs to solve this one.)
+
+You can find the solution in CH10_Customers_Entertainers_Contemporary (5 rows).
+
+Solution:
+
+// 1. Write select for customers who like contemporary music
+// 2. Write select for entertainers who play contemporary music
+// 3. Union 1 and 2
+
+select concat(c.CustFirstName,' ',c.CustLastName) as Name,'Customer' as Type,
+ms.StyleName
+from Customers as c
+join Musical_Preferences as mp on (c.CustomerID = mp.CustomerID)
+join Musical_Styles as ms on (mp.StyleID = ms.StyleID)
+where ms.StyleName = 'Contemporary'
+union
+select e.EntStageName,'Entertainer' as Type,ms.StyleName
+from Entertainers as e
+join Entertainer_Styles as es on (e.EntertainerID = es.EntertainerID)
+ join Musical_Styles as ms on (es.StyleID = ms.StyleID)
+ where ms.StyleName = 'Contemporary';
++-----------------------+-------------+--------------+
+| Name                  | Type        | StyleName    |
++-----------------------+-------------+--------------+
+| Doris Hartwig         | Customer    | Contemporary |
+| Darren Gehring        | Customer    | Contemporary |
+| Kerry Patterson       | Customer    | Contemporary |
+| Carol Peacock Trio    | Entertainer | Contemporary |
+| Caroline Coie Cuartet | Entertainer | Contemporary |
++-----------------------+-------------+--------------+
+5 rows in set (0.00 sec)
+
+
+School Scheduling Database
+---------------------------
+
+1. “Create a mailing list for students and staff, sorted by ZIP Code.”
+(Hint: Try using a relative column number for the sort.)
+
+You can find the solution in CH10_Student_Staff_Mailing_List (45 rows).
+
+Bowling League Database
+------------------------
+
+1. “Find the bowlers who had a raw score of 165 or better at Thunderbird Lanes combined with bowlers who had a raw score of 150 or better at Bolero Lanes.”
+
+(Hint: This is another of those problems that can also be solved with a single SELECT statement and a complex WHERE clause.)
+
+You can find the solution using UNION in CH10_Good_Bowlers_TBird_Bolero_UNION (129 rows). You can find the solution using WHERE in CH10_Good_Bowlers_TBird_Bolero_WHERE (135 rows).
+
+2. Can you explain why the row counts are different in the previous solution queries?
+
+(Hint: Try using UNION ALL in the first query.)
+Recipes Database
+
+1. “Display a list of all ingredients and their default measurement amounts together with ingredients used in recipes and the measurement amount for each recipe.”
+
+(Hint: You need one simple JOIN and one complex JOIN to solve this.)
+
+You can find the solution in CH10_Ingredient_Recipe_Measurements (144 rows).

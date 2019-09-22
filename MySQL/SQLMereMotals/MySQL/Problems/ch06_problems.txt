@@ -1,0 +1,325 @@
+Sales Orders Database
+----------------------
+1. “Give me the names of all vendors based in Ballard, Bellevue, and Redmond.”
+
+You can find the solution in CH06_Ballard_Bellevue_Redmond_Vendors (3 rows).
+
+Solution:
+
+select VendName,VendCity
+from Vendors
+where VendCity in ('Ballard','Bellevue','Redmond');
++------------------------+----------+
+| VendName               | VendCity |
++------------------------+----------+
+| Shinoman, Incorporated | Bellevue |
+| Nikoma of America      | Ballard  |
+| Kona, Incorporated     | Redmond  |
++------------------------+----------+
+3 rows in set (0.00 sec)
+
+2. “Show me an alphabetized list of products with a retail price of $125.00
+or more.”
+
+(Hint: You’ll alphabetize the list using a clause we discussed in a previous
+ chapter.)
+
+You can find the solution in CH06_Products_Priced_Over_125 (13 rows).
+
+Solution:
+
+select ProductName,RetailPrice
+from Products
+where RetailPrice >= 125
+order by ProductName;
++----------------------------------+-------------+
+| ProductName                      | RetailPrice |
++----------------------------------+-------------+
+| AeroFlo ATB Wheels               |      189.00 |
+| Cosmic Elite Road Warrior Wheels |      165.00 |
+| Cycle-Doc Pro Repair Stand       |      166.00 |
+
+....
+
+| Ultimate Export 2G Car Rack      |      180.00 |
+| Viscount CardioSport Sport Watch |      179.00 |
+| Viscount Mountain Bike           |      635.00 |
++----------------------------------+-------------+
+13 rows in set (0.01 sec)
+
+3. “Which vendors do we work with that don’t have a Web site?”
+
+You can find the solution in CH06_Vendors_With_No_Website (4 rows).
+
+Solution:
+
+select VendName,VendWebPage
+    -> from Vendors
+    -> where VendWebPage is NULL;
++------------------------+-------------+
+| VendName               | VendWebPage |
++------------------------+-------------+
+| Big Sky Mountain Bikes | NULL        |
+| Dog Ear                | NULL        |
+| Sun Sports Suppliers   | NULL        |
+| Lone Star Bike Supply  | NULL        |
++------------------------+-------------+
+4 rows in set (0.00 sec)
+
+
+Entertainment Agency Database
+------------------------------
+
+1. “Let me see a list of all engagements that occurred during October 2012.”
+
+(Hint: You need to solve this problem by testing for values in a range
+in the table that contain any values in another range—the first and
+last dates in October.)
+
+You can find the solution in CH06_October_2012_Engagements (23 rows).
+
+Solution:
+
+SELECT EngagementNumber, ContractPrice, StartDate, EndDate
+    -> FROM Engagements
+    -> WHERE StartDate <= CAST('2012-10-31' As DATE)
+    -> AND EndDate >= CAST('2012-10-01' As DATE);
++------------------+---------------+------------+------------+
+| EngagementNumber | ContractPrice | StartDate  | EndDate    |
++------------------+---------------+------------+------------+
+|               16 |       1550.00 | 2012-10-02 | 2012-10-06 |
+|               17 |        530.00 | 2012-09-29 | 2012-10-02 |
+|               19 |        365.00 | 2012-09-29 | 2012-10-05 |
+
+....
+
+|               44 |       1925.00 | 2012-10-22 | 2012-10-26 |
+|               45 |        530.00 | 2012-10-21 | 2012-10-28 |
+|               46 |       1400.00 | 2012-10-28 | 2012-11-05 |
++------------------+---------------+------------+------------+
+23 rows in set (0.01 sec)
+
+
+2. “Show me any engagements in October 2012 that start between noon and 5 P.M.”
+
+You can find the solution in CH06_October_Dates_Between_Noon_and_Five (17 rows).
+
+Solution:
+
+SELECT EngagementNumber, StartDate, StartTime
+FROM Engagements
+WHERE StartDate <= CAST('2012-10-31' As DATE)
+AND EndDate >= CAST('2012-10-01' AS DATE)
+and hour(StartTime) between 12 and 17
+order by StartDate;
++------------------+------------+-----------+
+| EngagementNumber | StartDate  | StartTime |
++------------------+------------+-----------+
+|               21 | 2012-09-30 | 12:00:00  |
+|               22 | 2012-09-30 | 12:00:00  |
+|               24 | 2012-10-01 | 12:00:00  |
+
+...
+
+|               45 | 2012-10-21 | 14:00:00  |
+|               44 | 2012-10-22 | 14:00:00  |
+|               46 | 2012-10-28 | 15:00:00  |
++------------------+------------+-----------+
+17 rows in set (0.00 sec)
+
+3. “List all the engagements that start and end on the same day.”
+
+You can find the solution in CH06_Single_Day_Engagements (5 rows).
+
+Solution:
+
+select EngagementNumber, StartDate, EndDate
+from Engagements
+where StartDate = EndDate
+order by StartDate;
++------------------+------------+------------+
+| EngagementNumber | StartDate  | EndDate    |
++------------------+------------+------------+
+|               23 | 2012-09-30 | 2012-09-30 |
+|               43 | 2012-10-21 | 2012-10-21 |
+|               90 | 2013-01-08 | 2013-01-08 |
+|               97 | 2013-01-19 | 2013-01-19 |
+|              118 | 2013-02-18 | 2013-02-18 |
++------------------+------------+------------+
+5 rows in set (0.00 sec)
+
+
+School Scheduling Database
+---------------------------
+1. “Show me which staff members use a post office box as their address.”
+
+You can find the solution in CH06_Staff_Using_POBoxes (3 rows).
+
+Solution:
+
+select StfFirstName, StfLastName,StfStreetAddress
+from Staff
+where StfStreetAddress like '%Box%'
+order by StfLastName;
++--------------+-------------+-------------------+
+| StfFirstName | StfLastName | StfStreetAddress  |
++--------------+-------------+-------------------+
+| Gary         | Hallmark    | Route 2, Box 203B |
+| Alaina       | Hallmark    | Route 2, Box 203B |
+| Michael      | Hernandez   | PO Box 223311     |
++--------------+-------------+-------------------+
+3 rows in set (0.00 sec)
+
+
+2. “Can you show me which students live outside of the Pacific Northwest?”
+
+You can find the solution in CH06_Students_Residing_Outside_PNW (5 rows).
+
+Solution:
+
+select StudFirstName,StudLastName,StudState
+from Students
+where StudState not in ('OR', 'WA');
++---------------+--------------+-----------+
+| StudFirstName | StudLastName | StudState |
++---------------+--------------+-----------+
+| Kerry         | Patterson    | TX        |
+| Betsy         | Stadick      | CA        |
+| Sarah         | Thompson     | TX        |
+| Brannon       | Jones        | CA        |
+| Steve         | Pundt        | TX        |
++---------------+--------------+-----------+
+5 rows in set (0.00 sec)
+
+3. “List all the subjects that have a subject code starting ‘MUS’.”
+
+You can find the solution in CH06_Subjects_With_MUS_In_SubjectCode (4 rows).
+
+Solution:
+
+select SubjectName,SubjectCode
+from Subjects
+where SubjectCode like 'MUS%'
+order by SubjectName;
++------------------------------------+-------------+
+| SubjectName                        | SubjectCode |
++------------------------------------+-------------+
+| First Year Theory and Ear Training | MUS 101     |
+| History of Jazz                    | MUS 204     |
+| Music in the Western World         | MUS 100     |
+| Second Year Music Theory           | MUS 201     |
++------------------------------------+-------------+
+4 rows in set (0.00 sec)
+
+
+Bowling League Database
+------------------------
+1. “Give me a list of the tournaments held during September 2012.”
+
+You can find the solution in CH06_September_2012_Tournament_Schedule (4 rows).
+
+Solution:
+
+select * from Tournaments
+where TourneyDate between cast('2012-09-01' as date)
+and cast('2012-09-30' as date)
+order by TourneyDate;
++-----------+-------------+-------------------+
+| TourneyID | TourneyDate | TourneyLocation   |
++-----------+-------------+-------------------+
+|         1 | 2012-09-04  | Red Rooster Lanes |
+|         2 | 2012-09-11  | Thunderbird Lanes |
+|         3 | 2012-09-18  | Bolero Lanes      |
+|         4 | 2012-09-25  | Imperial Lanes    |
++-----------+-------------+-------------------+
+4 rows in set (0.00 sec)
+
+
+2. “What are the tournament schedules for Bolero, Red Rooster, and Thunderbird Lanes?”
+
+You can find the solution in CH06_Eastside_Tournaments (9 rows).
+
+Solution:
+
+select * from Tournaments
+where TourneyLocation in ('Bolero Lanes','Red Rooster Lanes','Thunderbird Lanes')
+order by TourneyLocation,TourneyDate;
++-----------+-------------+-------------------+
+| TourneyID | TourneyDate | TourneyLocation   |
++-----------+-------------+-------------------+
+|         3 | 2012-09-18  | Bolero Lanes      |
+|        10 | 2012-11-06  | Bolero Lanes      |
+|        17 | 2013-07-26  | Bolero Lanes      |
+|         1 | 2012-09-04  | Red Rooster Lanes |
+|         8 | 2012-10-23  | Red Rooster Lanes |
+|        15 | 2013-07-12  | Red Rooster Lanes |
+|         2 | 2012-09-11  | Thunderbird Lanes |
+|         9 | 2012-10-30  | Thunderbird Lanes |
+|        16 | 2013-07-19  | Thunderbird Lanes |
++-----------+-------------+-------------------+
+9 rows in set (0.00 sec)
+
+
+3. “List the bowlers who live on the Eastside
+(you know—Bellevue, Bothell, Duvall, Redmond, and Woodinville) and who are
+on teams 5, 6, 7, or 8.”
+
+(Hint: Use IN for the city list and BETWEEN for the team numbers.)
+
+You can find the solution in CH06_Eastside_Bowlers_On_Teams_5_Through_8 (9 rows).
+
+Solution:
+
+select BowlerLastName,BowlerFirstName,BowlerCity,TeamID
+from Bowlers
+where BowlerCity in('Bellevue','Bothell','Duvall','Redmond','Woodinville')
+and (TeamID between 5 and 8)
+order by BowlerCity;
++----------------+-----------------+-------------+--------+
+| BowlerLastName | BowlerFirstName | BowlerCity  | TeamID |
++----------------+-----------------+-------------+--------+
+| Thompson       | Sarah           | Duvall      |      6 |
+| Thompson       | Mary            | Duvall      |      7 |
+| Thompson       | William         | Duvall      |      7 |
+| Viescas        | John            | Redmond     |      5 |
+| Viescas        | Suzanne         | Redmond     |      5 |
+| Viescas        | Caleb           | Redmond     |      6 |
+| Viescas        | Michael         | Redmond     |      7 |
+| Hallmark       | Alaina          | Woodinville |      6 |
+| Hallmark       | Bailey          | Woodinville |      8 |
++----------------+-----------------+-------------+--------+
+9 rows in set (0.00 sec)
+
+
+Recipes Database
+-----------------
+1. “List all recipes that are main courses (recipe class is 1) and that have notes.”
+
+You can find the solution in CH06_Main_Courses_With_Notes (4 rows).
+
+Solution:
+
+select RecipeID,RecipeTitle,Notes
+from Recipes
+where RecipeClassID = 1 and (notes is not null)\G
+
+
+2. “Display the first five recipes.”
+
+(Hint: Use BETWEEN on the primary key of the table.)
+
+You can find the solution in CH06_First_5_Recipes (5 rows).
+
+Solution:
+
+select RecipeID,RecipeTitle from Recipes order by RecipeID limit 5;
++----------+--------------------+
+| RecipeID | RecipeTitle        |
++----------+--------------------+
+|        1 | Irish Stew         |
+|        2 | Salsa Buena        |
+|        3 | Machos Nachos      |
+|        4 | Garlic Green Beans |
+|        5 | Fettuccini Alfredo |
++----------+--------------------+
+5 rows in set (0.00 sec)

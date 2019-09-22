@@ -1,0 +1,121 @@
+
+Sales Orders Database
+----------------------
+1. “Apply a 5 percent discount to all orders for customers who purchased more
+than $50,000 in the month of October 2012.”
+(Hint: You need a subquery within a subquery to fetch the order numbers
+for all orders where the customer ID of the order is in the set of customers
+who ordered more than $50,000 in the month of October.)
+
+You can find the solution in CH15_Give_Discount_To_Good_October_Customers (650 rows changed).
+Be sure to run CH15_Update_Order_Totals_Subquery to correct the totals in the Orders table after executing this query.
+
+Solution:
+
+UPDATE    Order_Details
+SET              QuotedPrice = ROUND(QuotedPrice * .95, 2)
+WHERE     OrderNumber in (... order numbers in orders on 10/12 > $50k....)
+
+Step 1: Find all customers who purchased more than $50k in 10/2012
+
+select o.CustomerID
+from Orders as o join Order_Details as od
+ON o.OrderNumber = od.OrderNumber
+where (month(o.OrderDate) = 10) and year(o.OrderDate) = 2012
+group by o.CustomerID
+having SUM(od.QuotedPrice * od.QuantityOrdered) > 50000;
++------------+
+| CustomerID |
++------------+
+|       1006 |
+|       1016 |
+|       1017 |
+|       1025 |
++------------+
+4 rows in set (0.01 sec)
+
+
+Step 2: List all orders affected (made in october 2012 and > 50K)
+
+select o.OrderNumber from Orders as o
+where o.CustomerID in (select o1.CustomerID
+                  from Orders as o1 join Order_Details as od
+                  ON o1.OrderNumber = od.OrderNumber
+                  where (month(o1.OrderDate) = 10) and year(o1.OrderDate) = 2012
+                  group by o1.CustomerID
+                  having SUM(od.QuotedPrice * od.QuantityOrdered) > 50000);
++-------------+
+| OrderNumber |
++-------------+
+|          58 |
+|          79 |
+|          81 |
+
+....
+
+|         918 |
+|         925 |
+|         936 |
++-------------+
+150 rows in set (0.00 sec)
+
+
+Step 3: Perform update
+
+update Order_Details
+set QuotedPrice = ROUND(QuotedPrice * .95, 2)
+where OrderNumber in
+( select o.OrderNumber from Orders as o
+  where o.CustomerID in (select o1.CustomerID
+                    from Orders as o1 join Order_Details as od
+                    ON o1.OrderNumber = od.OrderNumber
+                    where (month(o1.OrderDate) = 10) and year(o1.OrderDate) = 2012
+                    group by o1.CustomerID
+                    having SUM(od.QuotedPrice * od.QuantityOrdered) > 50000) );
+
+
+2. “Set the retail price of accessories (category = 1) to the wholesale price of the highest-priced vendor plus 35 percent.”
+
+(Hint: See CH15_Adjust_Bike_Retail_Price in the Sample Statements for the technique.)
+
+You can find the solution in CH15_Adjust_Accessory_Retail_Price (11 rows changed).
+
+Entertainment Agency Database
+-------------------------------
+
+1. “Apply a 2 percent discount to all engagements for customers who booked more than $3,000 worth of business in the month of October 2012.”
+
+(Hint: Use an aggregate subquery to find those customers with engagements in October HAVING total bookings greater than $3,000.)
+
+You can find the solution in CH15_Discount_Good_Customers_October (34 rows changed).
+
+2. “Add 0.5 percent to the commission rate of agents who have sold more than $20,000 in engagements.”
+
+(Hint: Use an aggregate subquery to find those agents HAVING total bookings greater than $20,000.)
+
+You can find the solution in CH15_Reward_Good_Agents (3 rows changed).
+
+School Scheduling Database
+---------------------------
+1. “Increase the salary of full-time tenured staff by 5 percent.”
+
+(Hint: Use a subquery in the WHERE clause to find matching staff IDs in the faculty table that have a status of full time and a tenured field value of true, that is, 1 or –1, depending on your database system.)
+
+You can find the solution in CH15_Give_FullTime_Tenured_Raise (21 rows changed).
+
+2. “For all staff in ZIP Codes 98270 and 98271, change the area code to 360.”
+
+You can find the solution in CH15_Fix_Staff_AreaCode (2 rows changed).
+
+Bowling League Database
+------------------------
+
+1. “Change the name of the ‘Huckleberrys’ bowling team to ‘Manta Rays.’”
+
+You can find the solution in CH15_Change_Huckleberry_Name (1 row changed).
+
+2. “Update the city and state for all bowlers by looking up the names by ZIP Code.”
+
+(Hint: Use a subquery to fetch the matching city name and another subquery to fetch the matching state from the WAZips table.)
+
+You can find the solution in CH15_Update_Bowler_City_State (6 rows changed).

@@ -1,0 +1,162 @@
+
+Sales Orders Database
+----------------------
+
+1. “Show me each vendor and the average by vendor of the number of days to deliver products.”
+(Hint: Use the AVG aggregate function and group on vendor.)
+
+You can find the solution in CH13_Vendor_Avg_Delivery (10 rows).
+
+Solution:
+
+select v.VendName,avg(pv.DaysToDeliver) as AvgDelivery
+from Vendors as v join Product_Vendors as pv on (v.VendorID = pv.VendorID)
+group by v.VendName;
+
++------------------------+-------------+
+| VendName               | AvgDelivery |
++------------------------+-------------+
+| Armadillo Brand        |     13.1667 |
+| Big Sky Mountain Bikes |     10.8182 |
+| Dog Ear                |     10.5556 |
+| Kona, Incorporated     |      8.0000 |
+| Lone Star Bike Supply  |     10.8667 |
+| Nikoma of America      |      4.0000 |
+| ProFormance            |      6.0000 |
+| Shinoman, Incorporated |      2.0000 |
+| Sun Sports Suppliers   |     11.6000 |
+| Viscount               |      3.0000 |
++------------------------+-------------+
+10 rows in set (0.00 sec)
+
+
+2. “Display for each product the product name and the total sales.”
+(Hint: Use SUM with a calculation of quantity times price and group on
+product name.)
+
+You can find the solution in CH13_Sales_By_Product (38 rows).
+
+Solution:
+
+select p.ProductName,sum(od.QuotedPrice*od.QuantityOrdered) as TotalSales
+from Products as p join Order_Details as od on (p.ProductNumber = od.ProductNumber)
+group by p.ProductName;
+
++---------------------------------------+------------+
+| ProductName                           | TotalSales |
++---------------------------------------+------------+
+| AeroFlo ATB Wheels                    |   75458.25 |
+| Clear Shade 85-T Glasses              |   14581.35 |
+| Cosmic Elite Road Warrior Wheels      |   63803.85 |
+
+....
+
+| Viscount Tru-Beat Heart Transmitter   |   17720.41 |
+| Wonder Wool Cycle Socks               |    6326.24 |
+| X-Pro All Weather Tires               |    6911.04 |
++---------------------------------------+------------+
+38 rows in set (0.04 sec)
+
+
+3. “List all vendors and the count of products sold by each.”
+
+You can find the solution in CH13_Vendor_Product_Count_Group (10 rows).
+
+Solution:
+
+select v.VendorID,VendName,count(pv.VendorID) as Products
+from Vendors as v join Product_Vendors as pv on (v.VendorID = pv.VendorID)
+group by v.VendorID,v.VendName;
++----------+------------------------+----------+
+| VendorID | VendName               | Products |
++----------+------------------------+----------+
+|        1 | Shinoman, Incorporated |        3 |
+|        2 | Viscount               |        6 |
+|        3 | Nikoma of America      |        5 |
+|        4 | ProFormance            |        3 |
+|        5 | Kona, Incorporated     |        1 |
+|        6 | Big Sky Mountain Bikes |       22 |
+|        7 | Dog Ear                |        9 |
+|        8 | Sun Sports Suppliers   |        5 |
+|        9 | Lone Star Bike Supply  |       30 |
+|       10 | Armadillo Brand        |        6 |
++----------+------------------------+----------+
+10 rows in set (0.00 sec)
+
+
+4. Challenge: Now solve problem 3 by using a subquery.
+
+Solution:
+
+
+Entertainment Agency Database
+-------------------------------
+
+1. “Show each agent’s name, the sum of the contract price for the engagements booked, and the agent’s total commission.”
+
+(Hint: You must multiply the sum of the contract prices by the agent’s commission. Be sure to group on the commission rate as well!)
+
+You can find the solution in CH13_Agent_Sales_And_Commissions (8 rows).
+
+School Scheduling Database
+----------------------------
+
+1. “Display by category the category name and the count of classes offered.”
+
+(Hint: Use COUNT and group on category name.)
+
+You can find the solution in CH13_Category_Class_Count (15 rows).
+
+2. “List each staff member and the count of classes each is scheduled to teach.”
+
+(Hint: Use COUNT and group on staff name.)
+
+You can find the solution in CH13_Staff_Class_Count (22 rows).
+
+3. Challenge: Now solve problem 2 by using a subquery.
+
+You can find the solution in CH13_Staff_Class_Count_Subquery (27 rows).
+
+4. Can you explain why the subquery solution returns 5 more rows? Is it possible to modify the query in question 2 to return 27 rows? If so, how would you do it?
+
+(Hint: Think about using an OUTER JOIN.)
+
+Bowling League Database
+------------------------
+
+1. “Display for each bowler the bowler name and the average of the bowler’s raw game scores.”
+
+(Hint: Use the AVG aggregate function and group on bowler name.)
+
+You can find the solution in CH13_Bowler_Averages (32 rows).
+
+2. “Calculate the current average and handicap for each bowler.”
+
+(Hint: This is a “friendly” league, so the handicap is 90 percent of 200 minus the raw average. Be sure to round the raw average and convert it to an integer before subtracting it from 200, and then round and truncate the final result. Although the SQL Standard doesn’t define a ROUND function, most commercial database systems provide one. Check your product documentation for details.)
+
+You can find the solution in CH13_Bowler_Average_Handicap (32 rows).
+
+3. Challenge: “Display the highest raw score for each bowler,” but solve it by using a subquery.
+
+You can find the solution in CH13_Bowler_High_Score_Subquery (32 rows).
+
+Recipes Database
+----------------
+
+1. “If I want to cook all the recipes in my cookbook, how much of each ingredient must I have on hand?”
+
+(Hint: Use SUM and group on ingredient name and measurement description.)
+
+You can find the solution in CH13_Total_Ingredients_Needed (65 rows).
+
+2. “List all meat ingredients and the count of recipes that include each one.”
+
+You can find the solution in CH13_Meat_Ingredient_Recipe_Count_Group (4 rows).
+
+3. Challenge: Now solve problem 2 by using a subquery.
+
+You can find the solution in CH13_Meat_Ingredient_Recipe_Count_Subquery (11 rows).
+
+4. Can you explain why the subquery solution returns 7 more rows? Is it possible to modify the query in question 2 to return 27 rows? If so, how would you do it?
+
+(Hint: Think about using an OUTER JOIN.)

@@ -1,0 +1,129 @@
+
+Sales Orders Database
+-----------------------
+
+1. “Show me each vendor and the average by vendor of the number of days to
+deliver products that is greater than the average delivery days for all vendors.”
+(Hint: You need a subquery to fetch the average delivery time for all vendors.)
+
+You can find the solution in CH14_Vendor_Avg_Delivery_GT_Overall_Avg (5 rows).
+
+Solution:
+
+select v.VendName,avg(pv.DaysToDeliver) as AvgDelivery
+from Vendors as v join Product_Vendors as pv
+on (v.VendorID = pv.VendorID)
+group by v.VendName
+having AvgDelivery > (select avg(DaysToDeliver) from Product_Vendors);
++------------------------+-------------+
+| VendName               | AvgDelivery |
++------------------------+-------------+
+| Armadillo Brand        |     13.1667 |
+| Big Sky Mountain Bikes |     10.8182 |
+| Dog Ear                |     10.5556 |
+| Lone Star Bike Supply  |     10.8667 |
+| Sun Sports Suppliers   |     11.6000 |
++------------------------+-------------+
+5 rows in set (0.00 sec)
+
+
+select avg(DaysToDeliver) from Product_Vendors;
++--------------------+
+| avg(DaysToDeliver) |
++--------------------+
+|             9.6222 |
++--------------------+
+1 row in set (0.00 sec)
+
+
+2. “Display for each product the product name and the total sales that is greater than the average of sales for all products in that category.”
+
+(Hint: To calculate the comparison value, you must first SUM the sales for each product within a category and then AVG those sums by category.)
+
+You can find the solution in CH14_Sales_By_Product_GT_Category_Avg (13 rows).
+
+3. “How many orders are for only one product?”
+
+(Hint: You need to use an inner query in the FROM clause that lists the order numbers for orders having only one row and then COUNT those rows in the outer SELECT clause.)
+
+You can find the solution in CH14_Single_Item_Order_Count (1 row).
+
+Entertainment Agency Database
+------------------------------
+
+1. “Show me the entertainers who have more than two overlapped bookings.”
+
+(Hint: Use a subquery to find those entertainers with overlapped bookings HAVING a COUNT greater than 2.)
+
+You can find the solution in CH14_Entertainers_MoreThan_2_Overlap (1 row).
+
+2. “Show each agent’s name, the sum of the contract price for the engagements booked, and the agent’s total commission for agents whose total commission is more than $1,000.”
+
+(Hint: Use the similar problem from Chapter 13 and add a HAVING clause.)
+
+You can find the solution in CH14_Agent_Sales_Big_Commissions (4 rows).
+
+School Scheduling Database
+---------------------------
+
+1. “Display by category the category name and the count of classes offered for those categories that have three or more classes.”
+
+(Hint: JOIN categories to subjects and then to classes. COUNT the rows and add a HAVING clause to get the final result.)
+
+You can find the solution in CH14_Category_Class_Count_3_Or_More (14 rows).
+
+2. “List each staff member and the count of classes each is scheduled to teach for those staff members who teach fewer than three classes.”
+
+(Hint: This is a HAVING COUNT zero trap! Use subqueries instead.)
+
+You can find the solution in CH14_Staff_Teaching_LessThan_3 (7 rows).
+
+3. “Show me the subject categories that have fewer than three full professors teaching that subject.”
+
+We did show you one way to correctly solve this problem in the section “Avoiding the HAVING COUNT Trap” using subqueries. Now try to solve it correctly using JOINs and GROUP BY.
+
+(Hint: Consider using OUTER JOIN and a subquery in the FROM clause.)
+
+You can find the solution in CH14_Subjects_Fewer_3_Professors_Join_RIGHT (16 rows).
+
+4. “Count the classes taught by all staff members.”
+
+(Hint: This really isn’t a HAVING problem, but you might be tempted to solve it incorrectly using a GROUP BY using COUNT(*).)
+
+You can find the correct solution in CH14_Staff_Class_Count_Subquery (27 rows) and CH14_Staff_Class_Count_GROUPED_RIGHT (27 rows). The incorrect solution is in CH14_Staff_Class_Count_GROUPED_WRONG (22 rows).
+
+Bowling League Database
+------------------------
+
+1. “Do any team captains have a raw score that is higher than any other member on the team?”
+
+(Hint: You find out the top raw score for captains by JOINing teams to bowlers on captain ID and then to bowler scores. Use a HAVING clause to compare the MAX value for all other members from a subquery.)
+
+You can find the solution in CH14_Captains_Who_Are_Hotshots (0 rows). (There are no captains who bowl better than their teammates!)
+
+2. “Display for each bowler the bowler name and the average of the bowler’s raw game scores for bowlers whose average is greater than 155.”
+
+(Hint: You need a simple HAVING clause comparing the AVG to a numeric literal.)
+
+You can find the solution in CH14_Good_Bowlers (17 rows).
+
+3. “List the last name and first name of every bowler whose average raw score is greater than or equal to the overall average score.”
+
+(Hint: We showed you how to solve this in Chapter 12 in the “Sample Statements” section with a subquery in a WHERE clause. Now solve it using HAVING!)
+
+You can find the solution in CH14_Better_Than_Overall_Average_HAVING (17 rows).
+
+Recipes Database
+-----------------
+
+1. “Sum the amount of salt by recipe class, and display those recipe classes that require more than 3 teaspoons.”
+
+(Hint: This requires a complex JOIN of five tables to filter out salt and teaspoon, SUM the result, and then eliminate recipe classes that use more than 3 teaspoons.)
+
+You can find the solution in CH14_Recipe_Classes_Lots_Of_Salt (1 row).
+
+2. “For what class of recipe do I have two or more recipes?”
+
+(Hint: JOIN recipe classes with recipes, count the result, and keep the ones with two or more with a HAVING clause.)
+
+You can find the solution in CH14_Recipe_Classes_Two_Or_More (4 rows).

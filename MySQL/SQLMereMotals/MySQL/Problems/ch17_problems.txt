@@ -1,0 +1,129 @@
+
+Sales Orders Database
+----------------------
+1. “Delete products that have never been ordered.”
+(Hint: You need to delete from the Product_Vendors table first and then from
+the Products table.)
+
+You can find the solution in CH17_Delete_Products_Never_Ordered_1 (4 rows deleted)
+and CH17_Delete_Products_Never_Ordered_2 (2 rows deleted).
+Note that you will see three rows deleted in the second query if you ran
+the CH16_Add_Product query in the previous chapter.
+
+Solution:
+
+Step 1: Find products that meet criteria
+
+select ProductNumber,ProductName from Products
+where ProductNumber not in
+  (select ProductNumber from Order_Details);
++---------------+--------------------------------+
+| ProductNumber | ProductName                    |
++---------------+--------------------------------+
+|             4 | Victoria Pro All Weather Tires |
+|            23 | Ultra-Pro Rain Jacket          |
++---------------+--------------------------------+
+2 rows in set (0.01 sec)
+
+Step : Perform deletes
+
+delete from Product_Vendors
+where ProductNumber not in
+  (select ProductNumber from Order_Details);
+
+delete from Products
+where ProductNumber not in
+  (select ProductNumber from Order_Details);
+
+2. “Delete employees who haven’t sold anything.”
+
+You can find the solution in CH17_Delete_Employees_No_Orders (1 row deleted).
+Note that you will see two rows deleted if you executed the CH16_Add_Employee
+query from the previous chapter.
+
+
+Step 1: Find employees that meet the criteria
+
+select EmployeeID,EmpFirstName,EmpLastName
+from Employees
+where EmployeeID not in
+  (select EmployeeID from Orders);
++------------+--------------+-------------+
+| EmployeeID | EmpFirstName | EmpLastName |
++------------+--------------+-------------+
+|        709 | Daffy        | Dumbwit     |
++------------+--------------+-------------+
+1 row in set (0.00 sec)
+
+Step 2: Perform delete
+
+delete from Employees
+where EmployeeID not in
+  (select EmployeeID from Orders);
+
+3. “Delete any categories that have no products.”
+
+You can find the solution in CH17_Delete_Categories_No_Products (1 row deleted).
+
+Solution:
+
+Step 1: Find categories that meet criteria
+
+select * from Categories
+where CategoryID not in
+  (select CategoryID from Products);
++------------+---------------------+
+| CategoryID | CategoryDescription |
++------------+---------------------+
+|          7 | Scooters            |
++------------+---------------------+
+1 row in set (0.00 sec)
+
+Step 2: Perform delete
+
+delete from Categories
+where CategoryID not in
+  (select CategoryID from Products);
+
+Entertainment Agency Database
+--------------------------------
+
+1. “Delete customers who have never booked an entertainer.”
+
+You can find the solution in CH17_Delete_Customers_Never_Booked (2 rows deleted). Note that you will see three rows deleted if you ran the CH16_Add_Customer query in the previous chapter.
+
+2. “Delete musical styles that aren’t played by any entertainer.”
+
+You can find the solution in CH17_Delete_Styles_No_Entertainer (8 rows deleted). You will see nine rows deleted if you executed the CH16_Add_Style query in the previous chapter.
+
+3. “Delete members who are not part of an entertainment group.”
+
+You can find the solution in CH17_Delete_Members_Not_In_Group (no rows deleted).
+
+School Scheduling Database
+
+---------------------------
+
+1. “Delete all students who are not registered for any class.”
+
+You can find the solution in CH17_Delete_Students_No_Classes (1 row deleted). You will see two rows deleted if you ran the CH16_Add_Student query from the previous chapter.
+
+2. “Delete subjects that have no classes.”
+
+(Hint: You need to delete rows from both the Faculty_Subjects and the Subjects tables.)
+
+You can find the solution in CH17_Delete_Subjects_No_Classes_1 (8 rows deleted) and CH17_Delete_Subjects_No_Classes_2 (4 rows deleted).
+
+
+Bowling League Database
+-------------------------
+
+1. “Delete all the tournament data that has been copied to the archive tables.”
+
+(Hint: You need to delete rows from the Bowler_Scores, Match_Games, Tourney_Matches, and Tournaments tables. You should find no rows to delete unless you have executed the four archive queries from Chapter 16.)
+
+You can find the solution in CH17_Delete_Archived_2012_Tournaments_1 (1,344 rows deleted), CH17_Delete_Archived_2012_Tournaments_2 (168 rows deleted), CH17_Delete_Archived_2012_Tournaments_3 (57 rows deleted), and CH17_Delete_Archived_2012_Tournaments_4 (14 rows deleted).
+
+2. “Delete all bowling matches that have not been played.”
+
+You can find the solution in CH17_Delete_Matches_Not_Played (1 row deleted).

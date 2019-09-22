@@ -1,0 +1,145 @@
+
+Sales Orders Database
+----------------------
+1. “Display products and the latest date each product was ordered.”
+(Hint: Use the MAX aggregate function.)
+
+You can find the solution in CH11_Products_Last_Date (40 rows).
+
+Solution:
+
+SELECT Products.ProductNumber, Products.ProductName,
+  (SELECT max(Orders.OrderDate)
+    FROM Orders INNER JOIN Order_Details ON (Orders.OrderNumber = Order_Details.OrderNumber)
+    WHERE (Order_Details.ProductNumber = Products.ProductNumber))
+AS LastOrder FROM Products;
+
+Do you see any blank dates in the result? Can you explain why?
+
++---------------+---------------------------------------+------------+
+| ProductNumber | ProductName                           | LastOrder  |
++---------------+---------------------------------------+------------+
+|             1 | Trek 9000 Mountain Bike               | 2013-02-28 |
+|             2 | Eagle FS-3 Mountain Bike              | 2013-02-22 |
+|             3 | Dog Ear Cyclecomputer                 | 2013-01-31 |
+|             4 | Victoria Pro All Weather Tires        | NULL       |
+
+....
+
+2. “List customers who ordered bikes.”
+
+(Hint: Build a filter using IN.)
+
+You can find the solution in CH11_Customers_Order_Bikes_IN (23 rows).
+
+3. “What products have never been ordered?”
+
+(Hint: Build a filter using NOT IN.)
+
+You can find the solution in CH11_Products_Not_Ordered (2 rows).
+
+Entertainment Agency Database
+------------------------------
+1. “Show me all entertainers and the count of each entertainer’s engagements.”
+(Hint: Use the COUNT aggregate function.)
+
+You can find the solution in CH11_Entertainers_Engagement_Count (13 rows).
+
+Solution:
+
+select e.EntStageName as Entertainer,
+  (select count(*) from Engagements as en
+    where e.EntertainerID = en.EntertainerID) as Engagements
+from Entertainers as e
+order by Entertainer;
++--------------------------+-------------+
+| Entertainer              | Engagements |
++--------------------------+-------------+
+| Carol Peacock Trio       |          11 |
+| Caroline Coie Cuartet    |          11 |
+| Coldwater Cattle Company |           8 |
+
+....
+
+2. “List customers who have booked entertainers who play country or country rock.”
+
+(Hint: Build a filter using IN.)
+
+You can find the solution in CH11_Customers_Who_Like_Country (13 rows).
+
+3. “Find the entertainers who played engagements for customers Berg or Hallmark.”
+
+(Hint: Build a filter using = SOME.)
+
+You can find the solution in CH11_Entertainers_Berg_OR_Hallmark_SOME (8 rows).
+
+4. “Display agents who haven’t booked an entertainer.”
+
+(Hint: Build a filter using NOT IN.)
+
+You can find the solution in CH11_Bad_Agents (1 row).
+
+School Scheduling Database
+----------------------------
+1. “List all staff members and the count of classes each teaches.”
+(Hint: Use the COUNT aggregate function.)
+
+You can find the solution in CH11_Staff_Class_Count (27 rows).
+
+Solution:
+
+select s.StfFirstName,s.stfLastName,
+  (select cnt(*) from Faculty_Classes as fc
+    where s.StaffID = fc.StaffID) as Classes
+from Staff as s
+order by s.stfLastName;
++--------------+-------------+---------+
+| StfFirstName | stfLastName | Classes |
++--------------+-------------+---------+
+| Sam          | Abolrous    |       8 |
+| Alastair     | Black       |       6 |
+| Joyce        | Bonnicksen  |       4 |
+
+.....
+
+2. “Display students enrolled in a class on Tuesday.”
+
+(Hint: Build a filter using IN.)
+
+You can find the solution in CH11_Students_In_Class_Tuesdays (18 rows).
+
+3. “List the subjects taught on Wednesday.”
+
+(Hint: Build a filter using IN.)
+
+You can find the solution in CH11_Subjects_On_Wednesday (34 rows).
+
+Bowling League Database
+-------------------------
+1. “Show me all the bowlers and a count of games each bowled.”
+
+(Hint: Use the COUNT aggregate function.)
+
+You can find the solution in CH11_Bowlers_And_Count_Games (32 rows).
+
+2. “List all the bowlers who have a raw score that’s less than all of the other
+bowlers on the same team.”
+
+(Hint: Build a filter using < ALL. Also use DISTINCT in case a bowler has
+ multiple games with the same low score.)
+
+You can find the solution in CH11_Bowlers_Low_Score (3 rows).
+
+Recipes Database
+-----------------
+1. “Show me the types of recipes and the count of recipes in each type.”
+
+(Hint: Use the COUNT aggregate function.)
+
+You can find the solution in CH11_Count_Of_Recipe_Types (7 rows).
+
+2. “List the ingredients that are used in some recipe where the measurement amount in the recipe is not the default measurement amount.”
+
+(Hint: Build a filter using <> SOME.)
+
+You can find the solution in CH11_Ingredients_Using_NonStandard_Measure (21 rows).

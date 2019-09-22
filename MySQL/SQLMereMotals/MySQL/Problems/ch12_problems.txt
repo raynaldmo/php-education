@@ -1,0 +1,206 @@
+
+Sales Orders Database
+----------------------
+1. “What is the average retail price of a mountain bike?”
+
+You can find the solution in CH12_Average_Price_Of_A_Mountain_Bike (1 row).
+
+Solution:
+
+select avg(RetailPrice) as 'Mountain Bike Avg Price'
+from Products
+where ProductName like '%mountain bike%';
+
++-------------------------+
+| Mountain Bike Avg Price |
++-------------------------+
+|             1321.250000 |
++-------------------------+
+1 row in set (0.00 sec)
+
+
+2. “What was the date of our most recent order?”
+
+You can find the solution in CH12_Most_Recent_Order_Date (1 row).
+
+Solution:
+
+select max(OrderDate) as 'Most Recent Order'
+from Orders;
++-------------------+
+| Most Recent Order |
++-------------------+
+| 2013-02-28        |
++-------------------+
+1 row in set (0.00 sec)
+
+
+3. “What was the total amount for order number 8?”
+
+You can find the solution in CH12_Total_Amount_For_Order_Number_8 (1 row).
+
+Solution:
+
+select OrderNumber,sum(QuotedPrice*QuantityOrdered) as Total
+from Order_Details
+where OrderNumber = 8;
++-------------+---------+
+| OrderNumber | Total   |
++-------------+---------+
+|           8 | 1492.60 |
++-------------+---------+
+1 row in set (0.00 sec)
+
+
+Entertainment Agency Database
+-----------------------------
+
+1. “What is the average salary of a booking agent?”
+
+You can find the solution in CH12_Average_Agent_Salary (1 row).
+
+Solution:
+
+select avg(Salary) as 'Agent Avg Salary'
+from Agents;
++------------------+
+| Agent Avg Salary |
++------------------+
+|     24850.000000 |
++------------------+
+1 row in set (0.00 sec)
+
+
+2. “Show me the engagement numbers for all engagements that have a contract
+price greater than or equal to the overall average contract price.”
+(Hint: You’ll have to use a subquery to answer this request.)
+
+You can find the solution in CH12_Contract_Price_GE_Average_Contract_Price (43 rows).
+
+Solution:
+
+select EngagementNumber, ContractPrice
+from Engagements
+where ContractPrice >= (select avg(ContractPrice) from Engagements);
+order by ContractPrice desc;
++------------------+---------------+
+| EngagementNumber | ContractPrice |
++------------------+---------------+
+|               99 |      14105.00 |
+|               28 |       3800.00 |
+|               10 |       3650.00 |
+
+....
+
+|               46 |       1400.00 |
+|                9 |       1370.00 |
+|               88 |       1370.00 |
++------------------+---------------+
+43 rows in set (0.01 sec)
+
+
+3. “How many of our entertainers are based in Bellevue?”
+
+You can find the solution in CH12_Number_Of_Bellevue_Entertainers (1 row).
+
+Solution:
+
+select count(*) as BellevueEntertainers from
+Entertainers
+where EntCity = 'Bellevue';
++----------------------+
+| BellevueEntertainers |
++----------------------+
+|                    3 |
++----------------------+
+
+
+School Scheduling Database
+----------------------------
+
+1. “What is the current average class duration?”
+
+You can find the solution in CH12_Average_Class_Duration (1 row).
+
+Solution:
+
+select avg(Duration) as AvgClassDuration
+from Classes;
++------------------+
+| AvgClassDuration |
++------------------+
+|          78.9394 |
++------------------+
+1 row in set (0.00 sec)
+
+
+2. “List the last name and first name of each staff member who has been with
+us since the earliest hire date.”
+(Hint: You’ll have to use a subquery containing an aggregate function that
+evaluates the DateHired column.)
+
+You can find the solution in CH12_Most_Senior_Staff_Members (1 row).
+
+Solution:
+
+select StfLastName,StfFirstName,DateHired
+from Staff
+where DateHired = (select min(DateHired) from Staff);
++-------------+--------------+------------+
+| StfLastName | StfFirstName | DateHired  |
++-------------+--------------+------------+
+| Abolrous    | Sam          | 1982-11-20 |
++-------------+--------------+------------+
+1 row in set (0.00 sec)
+
+3. “How many classes are held in room 3346?”
+
+You can find the solution in CH12_Number_Of_Classes_Held_In_Room_3346 (1 row).
+
+Solution:
+
+Bowling League Database
+-------------------------
+
+1. “What is the largest handicap held by any bowler at the current time?”
+
+You can find the solution in CH12_Current_Highest_Handicap (1 row).
+
+2. “Which locations hosted tournaments on the earliest tournament date?”
+
+You can find the solution in CH12_Tourney_Locations_For_Earliest_Date (1 row).
+
+3. “What is the last tournament date we have in our schedule?”
+
+You can find the solution in CH12_Last_Tourney_Date (1 row).
+
+Recipes Database
+-----------------
+
+1. “Which recipe requires the most cloves of garlic?”
+
+(Hint: You’ll need to use INNER JOINs and a subquery to answer this request.)
+
+You can find the solution in CH12_Recipe_With_Most_Cloves_of_Garlic (1 row).
+
+2. “Count the number of main course recipes.”
+(Hint: This requires a JOIN between Recipe_Classes and Recipes.)
+
+You can find the solution in CH12_Number_Of_Main_Course_Recipes (1 row).
+
+Solution:
+
+select count(*) as MainCourseRecipes
+from Recipes as r join Recipe_Classes as rc on (r.RecipeClassID = rc.RecipeClassID)
+where rc.RecipeClassDescription = 'main course';
++-------------------+
+| MainCourseRecipes |
++-------------------+
+|                 7 |
++-------------------+
+1 row in set (0.00 sec)
+
+
+3. “Calculate the total number of teaspoons of salt in all recipes.”
+
+You can find the solution in CH12_Total_Salt_Used (1 row).

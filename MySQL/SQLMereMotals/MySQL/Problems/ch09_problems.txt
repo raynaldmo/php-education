@@ -1,0 +1,199 @@
+Sales Orders Database
+-----------------------
+1. “Show me customers who have never ordered a helmet.”
+(Hint: This is another request where you must first build an INNER JOIN to find
+ all orders containing helmets and then do an OUTER JOIN with Customers.)
+
+You can find the solution in CH09_Customers_No_Helmets (3 rows).
+
+Solution:
+
+
+2. “Display customers who have no sales rep (employees) in the same ZIP Code.”
+
+You can find the solution in CH09_Customers_No_Rep_Same_Zip (18 rows).
+
+Solution:
+
+select c.CustomerID, c.CustFirstName, c.CustLastName, c.CustZipCode,
+e.EmployeeID
+from Customers as c left join Employees as e
+on (c.CustZipCode = e.EmpZipCode)
+where e.EmployeeID is null;
++------------+---------------+--------------+-------------+------------+
+| CustomerID | CustFirstName | CustLastName | CustZipCode | EmployeeID |
++------------+---------------+--------------+-------------+------------+
+|       1004 | Robert        | Brown        | 77201       |       NULL |
+|       1007 | Mariya        | Sergienko    | 97208       |       NULL |
+|       1008 | Neil          | Patterson    | 92199       |       NULL |
+
+
+3. “List all products and the dates for any orders.”
+
+You can find the solution in CH09_All_Products_Any_Order_Dates (2,681 rows).
+
+
+Entertainment Agency Database
+-------------------------------
+
+1. “Display agents who haven’t booked an entertainer.”
+
+You can find the solution in CH09_Agents_No_Contracts (1 row).
+
+Solution:
+
+select a.AgentID,a.AgtFirstName,a.AgtLastName,
+en.EngagementNumber,en.EntertainerID
+from Agents as a left outer join Engagements as en on (a.AgentID = en.AgentID)
+where en.EngagementNumber is NULL;
+
++---------+--------------+-------------+------------------+---------------+
+| AgentID | AgtFirstName | AgtLastName | EngagementNumber | EntertainerID |
++---------+--------------+-------------+------------------+---------------+
+|       9 | Daffy        | Dumbwit     |             NULL |          NULL |
++---------+--------------+-------------+------------------+---------------+
+1 row in set (0.00 sec)
+
+
+2. “List customers with no bookings.”
+
+You can find the solution in CH09_Customers_No_Bookings (2 rows).
+
+Solution:
+
+select c.CustomerID,c.CustFirstName,c.CustLastName,en.EngagementNumber
+from Customers as c left join Engagements as en on (c.CustomerID = en.CustomerID)
+where en.EngagementNumber is null;
++------------+---------------+--------------+------------------+
+| CustomerID | CustFirstName | CustLastName | EngagementNumber |
++------------+---------------+--------------+------------------+
+|      10008 | Darren        | Gehring      |             NULL |
+|      10011 | Joyce         | Bonnicksen   |             NULL |
++------------+---------------+--------------+------------------+
+2 rows in set (0.00 sec)
+
+
+3. “List all entertainers and any engagements they have booked.”
+
+You can find the solution in CH09_All_Entertainers_And_Any_Engagements (112 rows).
+
+Solution:
+
+select e.EntertainerID,e.EntStageName,en.EngagementNumber
+from Entertainers as e left outer join Engagements as en
+on (e.EntertainerID = en.EntertainerID);
++---------------+--------------------------+------------------+
+| EntertainerID | EntStageName             | EngagementNumber |
++---------------+--------------------------+------------------+
+|          1001 | Carol Peacock Trio       |               12 |
+|          1001 | Carol Peacock Trio       |               24 |
+|          1001 | Carol Peacock Trio       |               35 |
+
+....
+
+|          1008 | Country Feeling          |              124 |
+|          1009 | Katherine Ehrlich        |             NULL |
+|          1010 | Saturday Revue           |                9 |
+
+
+
+School Scheduling Database
+---------------------------
+1. “Show me classes that have no students enrolled.”
+(Hint: You need only “enrolled” rows from Student_Classes,
+not “completed” or “withdrew.”)
+
+You can find the solution in CH09_Classes_No_Students_Enrolled (118 rows).
+
+Solution:
+
+// 1.  Build enrolled ClassID list
+CREATE VIEW CH09_Classes_Students
+AS
+SELECT scs.ClassID
+FROM Student_Class_Status as scs
+INNER JOIN Student_Schedules as ss
+ON scs.ClassStatus = ss.ClassStatus
+WHERE scs.ClassStatusDescription = 'enrolled';
+
+// 2.
+SELECT s.SubjectName, c.ClassRoomID, c.StartTime, c.Duration
+FROM Subjects as s INNER JOIN
+( Classes as c LEFT OUTER JOIN CH09_Classes_Students AS Enrolled
+ON Classes.ClassID = Enrolled.ClassID )
+ON Subjects.SubjectID = Classes.SubjectID
+WHERE (Enrolled.ClassID IS NULL);
+
++--------------------------------------------+-------------+-----------+----------+
+| SubjectName                                | ClassRoomID | StartTime | Duration |
++--------------------------------------------+-------------+-----------+----------+
+| Financial Accounting Fundamentals I        |        3305 | 16:00:00  |       50 |
+| Financial Accounting Fundamentals I        |        3305 | 16:00:00  |       50 |
+| Financial Accounting Fundamentals II       |        3307 | 13:00:00  |       80 |
+
+.....
+
+2. “Display subjects with no faculty assigned.”
+
+You can find the solution in CH09_Subjects_No_Faculty (1 row).
+
+Solution:
+
+SELECT s.SubjectID, s.SubjectCode, s.SubjectName,fs.StaffID
+FROM Subjects as s LEFT JOIN Faculty_Subjects fs
+ON (Subjects.SubjectID = Faculty_Subjects.SubjectID)
+WHERE Faculty_Subjects.StaffID Is Null;
++-----------+-------------+----------------------+---------+
+| SubjectID | SubjectCode | SubjectName          | StaffID |
++-----------+-------------+----------------------+---------+
+|        29 | JRN 104     | College Publications |    NULL |
++-----------+-------------+----------------------+---------+
+1 row in set (0.00 sec)
+
+
+3. “List students not currently enrolled in any classes.”
+(Hint: You need to find which students have an “enrolled” class status in
+student schedules and then find the students who are not in this set.)
+
+You can find the solution in CH09_Students_Not_Currently_Enrolled (2 rows).
+
+Solution:
+
+
+4. “Display all faculty and the classes they are scheduled to teach.”
+
+You can find the solution in CH09_All_Faculty_And_Any_Classes (135 rows).
+
+Solution:
+
+
+
+Bowling League Database
+--------------------------
+
+1. “Display matches with no game data.”
+
+You can find the solution in CH09_Matches_Not_Played_Yet (1 row).
+
+2. “Display all tournaments and any matches that have been played.”
+
+You can find the solution in CH09_All_Tourneys_Match_Results (174 rows).
+
+Recipes Database
+------------------
+
+1. “Display missing types of recipes.”
+
+You can find the solution in CH09_Recipe_Classes_No_Recipes (1 row).
+
+2. “Show me all ingredients and any recipes they’re used in.”
+
+You can find the solution in CH09_All_Ingredients_Any_Recipes (108 rows).
+
+3. “List the salad, soup, and main course categories and any recipes.”
+
+You can find the solution in CH09_Salad_Soup_Main_Courses (9 rows).
+
+4. “Display all recipe classes and any recipes.”
+
+You can find the solution in CH09_All_RecipesClasses_And_Matching_Recipes (16 rows).

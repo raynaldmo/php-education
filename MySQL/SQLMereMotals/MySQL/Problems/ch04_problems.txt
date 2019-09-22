@@ -1,0 +1,306 @@
+
+Sales Orders Database
+----------------------
+1. “Show me all the information on our employees.”
+
+You can find the solution in CH04_Employee_Information (8 rows).
+
+Solution:
+
+select * from employees
+
+ select * from Employees\G
+*************************** 1. row ***************************
+      EmployeeID: 701
+    EmpFirstName: Ann
+     EmpLastName: Patterson
+EmpStreetAddress: 16 Maple Lane
+         EmpCity: Auburn
+        EmpState: WA
+      EmpZipCode: 98002
+     EmpAreaCode: 253
+  EmpPhoneNumber: 555-2591
+    EmpBirthDate: 1958-03-18
+
+.....
+
+*************************** 8. row ***************************
+      EmployeeID: 708
+    EmpFirstName: Susan
+     EmpLastName: McLain
+EmpStreetAddress: 511 Lenora Ave
+         EmpCity: Bellevue
+        EmpState: WA
+      EmpZipCode: 98006
+     EmpAreaCode: 425
+  EmpPhoneNumber: 555-2301
+    EmpBirthDate: 1967-10-15
+8 rows in set (0.00 sec)
+
+
+2. “Show me a list of cities, in alphabetical order, where our vendors are
+located, and include the names of the vendors we work with in each city.”
+
+You can find the solution in CH04_Vendor_Locations (10 rows).
+
+Solution:
+
+select VendCity,VendName from Vendors order by VendCity;
++--------------+------------------------+
+| VendCity     | VendName               |
++--------------+------------------------+
+| Albany       | ProFormance            |
+| Anchorage    | Big Sky Mountain Bikes |
+| Ballard      | Nikoma of America      |
+| Bellevue     | Shinoman, Incorporated |
+| Dallas       | Armadillo Brand        |
+| El Paso      | Lone Star Bike Supply  |
+| New York     | Dog Ear                |
+| Redmond      | Kona, Incorporated     |
+| Santa Monica | Sun Sports Suppliers   |
+| St. Louis    | Viscount               |
++--------------+------------------------+
+10 rows in set (0.00 sec)
+
+
+Entertainment Agency Database
+------------------------------
+1. “Give me the names and phone numbers of all our agents, and list them
+in last name/first name order.”
+
+You can find the solution in CH04_Agent_Phone_List (9 rows).
+
+Solution:
+
+select AgtFirstName,AgtLastName,AgtPhoneNumber
+    -> from Agents
+    -> order by AgtLastName,AgtFirstName;
++--------------+-------------+----------------+
+| AgtFirstName | AgtLastName | AgtPhoneNumber |
++--------------+-------------+----------------+
+| Scott        | Bishop      | 555-2666       |
+| Daffy        | Dumbwit     | 555-1234       |
+| John         | Kennedy     | 555-2621       |
+| Maria        | Patterson   | 555-2291       |
+| Karen        | Smith       | 555-2551       |
+| William      | Thompson    | 555-2681       |
+| Caleb        | Viescas     | 555-0037       |
+| Carol        | Viescas     | 555-2571       |
+| Marianne     | Wier        | 555-2606       |
++--------------+-------------+----------------+
+9 rows in set (0.00 sec)
+
+
+2. “Give me the information on all our engagements.”
+
+You can find the solution in CH04_Engagement_Information (111 rows).
+
+Solution:
+
+select * from Engagements\G
+*************************** 1. row ***************************
+EngagementNumber: 2
+       StartDate: 2012-09-01
+         EndDate: 2012-09-05
+       StartTime: 13:00:00
+        StopTime: 15:00:00
+   ContractPrice: 200.00
+      CustomerID: 10006
+         AgentID: 4
+   EntertainerID: 1004
+
+.....
+
+
+3. “List all engagements and their associated start dates.
+Sort the records by date in descending order and by engagement in
+ascending order.”
+
+You can find the solution in CH04_Scheduled_Engagements (111 rows).
+
+Solution:
+
+select StartDate,EngagementNumber
+from Engagements
+order by StartDate desc, EngagementNumber asc;
+
++------------+------------------+
+| StartDate  | EngagementNumber |
++------------+------------------+
+| 2013-03-03 |              131 |
+| 2013-02-26 |              128 |
+| 2013-02-25 |              123 |
+
+.................................
+
+| 2012-09-10 |                3 |
+| 2012-09-10 |                6 |
+| 2012-09-01 |                2 |
++------------+------------------+
+111 rows in set (0.00 sec)
+
+
+School Scheduling Database
+--------------------------
+1. “Show me a complete list of all the subjects we offer.”
+
+You can find the solution in CH04_Subject_List (56 rows).
+
+Solution:
+
+select SubjectName from Subjects;
++--------------------------------------------+
+| SubjectName                                |
++--------------------------------------------+
+| Financial Accounting Fundamentals I        |
+| Financial Accounting Fundamentals II       |
+| Fundamentals of Managerial Accounting      |
+
+.....
+
+| Introduction to Political Science          |
+| American Government                        |
+| Women and Politics                         |
++--------------------------------------------+
+56 rows in set (0.01 sec)
+
+
+2. “What kinds of titles are associated with our faculty?”
+
+You can find the solution in CH04_Faculty_Titles (3 rows).
+
+Solution:
+
+select distinct Title from Faculty;
++---------------------+
+| Title               |
++---------------------+
+| Instructor          |
+| Associate Professor |
+| Professor           |
++---------------------+
+3 rows in set (0.00 sec)
+
+
+3. “List the names and phone numbers of all our staff, and sort them
+by last name and first name.”
+
+You can find the solution in CH04_Staff_Phone_List (27 rows).
+
+Solution:
+
+select StfLastName,StfFirstName,Position,StfPhoneNumber
+from Staff
+order by StfLastname, StfFirstName;
++-------------+--------------+------------------+----------------+
+| StfLastName | StfFirstName | Position         | StfPhoneNumber |
++-------------+--------------+------------------+----------------+
+| Abolrous    | Sam          | Faculty          | 555-2611       |
+| Black       | Alastair     | Faculty          | 555-0039       |
+| Bonnicksen  | Joyce        | Faculty          | 555-2726       |
+
+....
+
+| Viescas     | Suzanne      | Faculty          | 555-2686       |
+| Waldal      | Deb          | Faculty          | 555-2496       |
+| Wilson      | Jim          | Faculty          | 555-2636       |
++-------------+--------------+------------------+----------------+
+27 rows in set (0.00 sec)
+
+
+Bowling League Database
+------------------------
+
+1. “List all of the teams in alphabetical order.”
+
+You can find the solution in CH04_Team_List (10 rows).
+
+Solution:
+
+select TeamName from Teams order by TeamName;
++--------------+
+| TeamName     |
++--------------+
+| Barracudas   |
+| Dolphins     |
+| Huckleberrys |
+| Manatees     |
+| Marlins      |
+| MintJuleps   |
+| Orcas        |
+| Sharks       |
+| Swordfish    |
+| Terrapins    |
++--------------+
+10 rows in set (0.00 sec)
+
+
+2. “Show me all the bowling score information for each of our members.”
+
+You can find the solution in CH04_Bowling_Score_Information (1,344 rows).
+
+Solution:
+
+select * from Bowler_Scores;
+
+
+3. “Show me a list of bowlers and their addresses, and sort it in
+alphabetical order.”
+
+You can find the solution in CH04_Bowler_Names_Addresses (32 rows).
+
+Solution:
+
+SELECT BowlerLastName, BowlerFirstName, BowlerAddress, BowlerCity, BowlerState, BowlerZip
+FROM  Bowlers
+ORDER BY BowlerLastName, BowlerFirstName;
+
+
+Recipes Database
+-----------------
+
+1. “Show me a list of all the ingredients we currently keep track of.”
+
+You can find the solution in CH04_Complete_Ingredients_List (79 rows).
+
+Solution:
+
+select IngredientName from Ingredients;
++-------------------------------+
+| IngredientName                |
++-------------------------------+
+| Beef                          |
+| Onion                         |
+| Water                         |
+
+....
+
+| Lemon                         |
+| Lemon Sorbet                  |
+| Vodka                         |
++-------------------------------+
+79 rows in set (0.00 sec)
+
+
+2. “Show me all the main recipe information, and sort it by the name
+of the recipe in alphabetical order.”
+
+You can find the solution in CH04_Main_Recipe_Information (15 rows).
+
+Solution:
+
+select RecipeTitle from Recipes
+    -> order by RecipeTitle;
++-------------------------------------------------------+
+| RecipeTitle                                           |
++-------------------------------------------------------+
+| Asparagus                                             |
+| Coupe Colonel                                         |
+| Fettuccini Alfredo                                    |
+
+....
+
+| Tourtière (French-Canadian Pork Pie)                  |
+| Trifle                                                |
+| Yorkshire Pudding                                     |
++-------------------------------------------------------+

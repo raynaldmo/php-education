@@ -1,0 +1,44 @@
+SAMPLE QUERIES
+===============
+
+<<SALES>>
+
+- Show all orders for Eagle Mountain Bike (ProductNumber 2)
+
+select od.OrderNumber,od.ProductNumber,p.ProductName
+from Order_Details od, Products p
+where od.ProductNumber = p.ProductNumber
+and
+od.ProductNumber = 2;
+
++-------------+---------------+--------------------------+
+| OrderNumber | ProductNumber | ProductName              |
++-------------+---------------+--------------------------+
+|           6 |             2 | Eagle FS-3 Mountain Bike |
+|         105 |             2 | Eagle FS-3 Mountain Bike |
+|         111 |             2 | Eagle FS-3 Mountain Bike |
+
+...
+
+
+
+<<RECIPES>>
+
+
+- Show ingredients for stew recipes
+
+select r.RecipeID,r.RecipeTitle,ri.IngredientID,i.IngredientName
+from Recipes as r,  Recipe_Ingredients as ri, Ingredients as i
+where (r.RecipeID = ri.RecipeID)
+and (ri.IngredientID = i.IngredientID)
+and (r.RecipeTitle like '%stew');
+
++----------+-------------+--------------+----------------+
+| RecipeID | RecipeTitle | IngredientID | IngredientName |
++----------+-------------+--------------+----------------+
+|        1 | Irish Stew  |            1 | Beef           |
+|        1 | Irish Stew  |            2 | Onion          |
+|        1 | Irish Stew  |            5 | Potato         |
+
+...
+

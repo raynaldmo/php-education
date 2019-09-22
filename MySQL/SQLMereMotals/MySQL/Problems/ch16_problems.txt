@@ -1,0 +1,137 @@
+Sales Orders Database
+----------------------
+1. “Customer Liz Keyser wants to order again the products ordered on
+December 11, 2012. Use June 12, 2013, as the order date and June 15, 2013,
+as the shipped date.”
+
+(Hint: You need to copy rows in both the Orders and Order_Details tables.
+Assume that you can add 1000 to the OrderID column value that you find for
+the December 11 order for Liz Keyser to generate the new order number.)
+
+You can find the solution in CH16_Copy_Dec11_Order_For_Keyser (1 row added)
+and CH16_Copy_Dec11_OrderDetails_For_Keyser (4 rows added).
+
+Solution:
+
+Step 1: Find Liz Keyser order made on 12/11/2012
+
+select * from Orders as o
+where CustomerID = (select CustomerID from Customers
+where CustFirstName = 'Liz' and CustLastName = 'Keyser')
+and o.OrderDate = '2012-12-11';
++-------------+------------+------------+------------+------------+------------+
+| OrderNumber | OrderDate  | ShipDate   | CustomerID | EmployeeID | OrderTotal |
++-------------+------------+------------+------------+------------+------------+
+|         508 | 2012-12-11 | 2012-12-14 |       1012 |        704 |   16688.85 |
++-------------+------------+------------+------------+------------+------------+
+1 row in set (0.00 sec)
+
+select CustomerID,CustFirstName,CustLastName
+from Customers where CustomerID = 1012;
++------------+---------------+--------------+
+| CustomerID | CustFirstName | CustLastName |
++------------+---------------+--------------+
+|       1012 | Liz           | Keyser       |
++------------+---------------+--------------+
+1 row in set (0.00 sec)
+
+
+select * from Order_Details where OrderNumber = 508;
++-------------+---------------+-------------+-----------------+
+| OrderNumber | ProductNumber | QuotedPrice | QuantityOrdered |
++-------------+---------------+-------------+-----------------+
+|         508 |             1 |     1164.00 |               5 |
+|         508 |            11 |     1600.50 |               6 |
+|         508 |            30 |       43.65 |               5 |
+|         508 |            40 |      174.60 |               6 |
++-------------+---------------+-------------+-----------------+
+4 rows in set (0.00 sec)
+
+
+Step 2 : Insert new order into Orders table
+
+insert into Orders
+  (OrderNumber, OrderDate,ShipDate,CustomerID,EmployeeID,OrderTotal)
+  select (OrderNumber + 1000) as OrderNumber,'2013-6-12' as OrderDate,
+    '2013-6-15' as ShipDate,CustomerID, EmployeeID, OrderTotal
+    from Orders
+    where CustomerID = (select CustomerID
+      from Customers
+      where CustFirstName = 'Liz' and CustLastName = 'Keyser') and
+    OrderDate = '2012-12-11';
+
+
+Step 3 : Insert new order into Order_Details
+
+insert into Order_Details
+  (OrderNumber, ProductNumber, QuotedPrice, QuantityOrdered)
+  select (od.OrderNumber + 1000) as OrderNumber, ProductNumber,
+    QuotedPrice, QuantityOrdered
+    from Order_Details as od, Orders as o, Customers as c
+    where (od.OrderNumber = o.OrderNumber) and
+    (o.CustomerID = c.CustomerID) and
+    (c.CustFirstName = 'Liz') and (c.CustLastName = 'Keyser') and
+    (o.OrderDate = '2012-12-11');
+
+
+2. “Create a new customer record for Mary Baker at
+7834 W 32nd Ct., Bothell, WA, 98011, with area code 425 and phone number 555-9876.”
+
+You can find the solution in CH16_Add_Customer (1 row added).
+
+Solution:
+
+insert into Customers (CustFirstName, CustLastName, CustStreetAddress,
+  CustCity, CustState, CustZipCode, CustAreaCode, CustPhoneNumber)
+  values ('Mary', 'Baker', '7834 W 32nd Ct.', 'Bothell', 'WA', '98011',
+            425, '555-9876');
+
+
+3. “Customer Angel Kennedy wants to order again all the products ordered during
+the month of November 2012. Use June 15, 2013, as the order date and
+June 18, 2013, as the shipped date.”
+
+(Hint: You need to copy rows in both the Orders and Order_Details tables.
+Assume that you can add 1000 to the OrderID column value that you find for
+the November orders for Angel Kennedy to generate the new order number.)
+
+You can find the solution in CH16_Copy_November_Orders_For_AKennedy (7 rows added)
+and CH16_Copy_November_OrderDetails_For_AKennedy (37 rows added).
+
+Entertainment Agency Database
+-----------------------------
+1. “Agent Marianne Wier would like to book some entertainers, so create a new customer record by copying relevant fields from the Agents table.”
+
+(Hint: Simply copy the relevant columns from the Agents table to the Customers table.)
+
+You can find the solution in CH16_Copy_Agent_To_Customer (1 row added).
+
+2. “Add ‘New Age’ to the list of musical styles.”
+
+You can find the solution in CH16_Add_Style (1 row added).
+
+3. “Customer Doris Hartwig would like to rebook the entertainers she hired to play on December 1, 2012, for August 1, 2013.”
+
+(Hint: Use a SELECT expression that joins the Customers and Engagements tables, and provide the new engagement dates as literal values.)
+
+You can find the solution in CH16_Duplicate_Engagement (1 row added).
+School Scheduling Database
+
+1. “Angel Kennedy wants to register as a student. Her husband, John, is already enrolled. Create a new student record for Angel using the information from John’s record.”
+
+You can find the solution in CH16_Add_Student (1 row added).
+
+2. “Staff member Tim Smith wants to enroll as a student. Create a new student record from Tim’s staff record.”
+
+You can find the solution in CH16_Enroll_Staff (1 row added).
+Bowling League Database
+
+1. “Archive the tournament, tourney match, match game, and bowler scores for all matches played in 2012.”
+
+(Hint: You need to write four queries to archive rows in the Tournaments, Tourney_Matches, Match_Games, and Bowler_Scores tables.)
+
+You can find the solution in CH16_Archive_2012_Tournaments_1 (14 rows added), CH16_Archive_2012_Tournaments_2 (57 rows added), CH16_Archive_2012_Tournaments_3 (168 rows added), and CH16_Archive_2012_Tournaments_4 (1,344 rows added).
+
+2. “Duplicate all the tournaments and tourney matches played in 2012 for the same week in 2014.”
+
+(Hint: Assume that you can add 25 to the TourneyID column value for the 2012 tournaments to generate the new tournament ID. You’ll need to copy rows in both the Tournaments and the Tourney_Matches tables.) Note also that you cannot simply add 2 years or 730 days to the dates because the objective is to play the tournaments on the same day of the week—52 weeks times 7 is 364, not 365. You can find the solution in CH16_Copy_2012_Tournaments_1 (14 rows added) and CH16_Copy_2012_Tournaments_2 (57 rows added).

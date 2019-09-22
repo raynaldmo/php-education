@@ -1,0 +1,331 @@
+Sales Orders Database
+----------------------
+
+1. “What if we adjusted each product price by reducing it 5 percent?”
+
+You can find the solution in CH05_Adjusted_Wholesale_Prices (90 rows).
+
+Solution:
+
+select ProductNumber,WholesalePrice,WholesalePrice * 0.95 as NewPrice
+    -> from Product_Vendors;
++---------------+----------------+-----------+
+| ProductNumber | WholesalePrice | NewPrice  |
++---------------+----------------+-----------+
+|             1 |         804.00 |  763.8000 |
+|             1 |         854.22 |  811.5090 |
+|             2 |        1269.00 | 1205.5500 |
+|             2 |        1477.81 | 1403.9195 |
+
+....
+
+|            39 |         137.55 |  130.6725 |
+|            39 |         126.44 |  120.1180 |
+|            40 |         154.87 |  147.1265 |
+|            40 |         136.35 |  129.5325 |
++---------------+----------------+-----------+
+90 rows in set (0.00 sec)
+
+
+2. “Show me a list of orders made by each customer in descending date order.”
+
+(Hint: You might need to order by more than one column for the information to display properly.)
+
+You can find the solution in CH05_Orders_By_Customer_And_Date (944 rows).
+
+Solution:
+
+select CustomerID,OrderNumber,OrderDate
+from Orders
+order by CustomerID,OrderDate desc;
++------------+-------------+------------+
+| CustomerID | OrderNumber | OrderDate  |
++------------+-------------+------------+
+|       1001 |         931 | 2013-02-27 |
+|       1001 |         898 | 2013-02-21 |
+|       1001 |         887 | 2013-02-20 |
+....
+
+|       1027 |          64 | 2012-09-10 |
+|       1027 |          37 | 2012-09-07 |
+|       1027 |          19 | 2012-09-02 |
++------------+-------------+------------+
+944 rows in set (0.00 sec)
+
+
+3. “Compile a complete list of vendor names and addresses in vendor name
+order.”
+
+You can find the solution in CH05_Vendor_Addresses (10 rows).
+
+Solution:
+
+SELECT   VendName,
+Concat(VendStreetAddress, ', ', VendCity, '  ', VendState, '  ', VendZipCode)
+AS VendCompleteAddress, VendPhoneNumber
+FROM         Vendors
+ORDER BY VendName;
+
++------------------------+---------------------------------------------+-----------------+
+| VendName               | VendCompleteAddress                         | VendPhoneNumber |
++------------------------+---------------------------------------------+-----------------+
+| Armadillo Brand        | 12330 Side Road Lane, Dallas  TX  75137     | (214) 444-9876  |
+| Big Sky Mountain Bikes | Glacier Bay South, Anchorage  AK  99209     | (907) 222-1234  |
+| Dog Ear                | 575 Madison Ave., New York  NY  10003       | (212) 888-9876  |
+| Kona, Incorporated     | PO Box 10429, Redmond  WA  98052            | (425) 333-1234  |
+| Lone Star Bike Supply  | 7402 Kingman Drive, El Paso  TX  79915      | (915) 666-9876  |
+| Nikoma of America      | 88 Old North Road Ave, Ballard  WA  91324   | (206) 666-1234  |
+| ProFormance            | 29 N. Quail St., Albany  NY  12012          | (518) 444-1234  |
+| Shinoman, Incorporated | 3042 19th Avenue South, Bellevue  WA  98001 | (425) 888-1234  |
+| Sun Sports Suppliers   | PO Box 8082, Santa Monica  CA  91003        | (310) 777-9876  |
+| Viscount               | 1911 Commerce Way, St. Louis  MO  63127     | (314) 777-1234  |
++------------------------+---------------------------------------------+-----------------+
+10 rows in set (0.01 sec)
+
+
+Entertainment Agency Database
+------------------------------
+1. “Give me the names of all our customers by city.”
+
+(Hint: You’ll have to use an ORDER BY clause on one of the columns.)
+
+You can find the solution in CH05_Customers_By_City (15 rows).
+
+Solution:
+
+select CustCity as City,concat(CustFirstName, ' ', CustLastName) as Customer
+from Customers
+order by City;
++----------+--------------------+
+| City     | Customer           |
++----------+--------------------+
+| Auburn   | Elizabeth Hallmark |
+| Bellevue | Joyce Bonnicksen   |
+| Bellevue | Sarah Thompson     |
+| Bellevue | Liz Keyser         |
+| Bellevue | Estella Pundt      |
+| Bellevue | Mark Rosales       |
+| Kirkland | Peter Brehm        |
+| Kirkland | Zachary Ehrlich    |
+| Kirkland | Darren Gehring     |
+| Redmond  | Dean McCrae        |
+| Redmond  | Kerry Patterson    |
+| Seattle  | Doris Hartwig      |
+| Seattle  | Carol Viescas      |
+| Tacoma   | Matt Berg          |
+| Tacoma   | Deb Waldal         |
++----------+--------------------+
+15 rows in set (0.00 sec)
+
+
+2. “List all entertainers and their Web sites.”
+
+You can find the solution in CH05_Entertainer_Web_Sites (13 rows).
+
+Solution:
+
+select EntStageName as Entertainer,EntWebPage as Website
+from Entertainers
+order by Entertainer;
++--------------------------+-----------------------+
+| Entertainer              | Website               |
++--------------------------+-----------------------+
+| Carol Peacock Trio       | www.cptrio.com        |
+| Caroline Coie Cuartet    | NULL                  |
+| Coldwater Cattle Company | www.coldwatercows.com |
+| Country Feeling          | NULL                  |
+| Jazz Persuasion          | www.jazzper.com       |
+| Jim Glynn                | NULL                  |
+| Julia Schnebly           | NULL                  |
+| JV & the Deep Six        | www.jvd6.com          |
+| Katherine Ehrlich        | NULL                  |
+| Modern Dance             | www.moderndance.com   |
+| Saturday Revue           | www.satrevue.com      |
+| Susan McLain             | www.greensleeves.com  |
+| Topazz                   | www.topazz.com        |
++--------------------------+-----------------------+
+13 rows in set (0.00 sec)
+
+3. “Show the date of each agent’s first six-month performance review.”
+
+(Hint: You’ll need to use date arithmetic to answer this request.)
+
+You can find the solution in CH05_First_Performance_Review (9 rows).
+
+Solution:
+
+ select concat(AgtLastName, ' ', AgtFirstName) as Agent, DateHired,
+    -> date_add(DateHired, interval 180 day) as FirstReview
+    -> from Agents
+    -> order by Agent;
++------------------+------------+-------------+
+| Agent            | DateHired  | FirstReview |
++------------------+------------+-------------+
+| Bishop Scott     | 1998-02-05 | 1998-08-04  |
+| Dumbwit Daffy    | 2000-02-05 | 2000-08-03  |
+| Kennedy John     | 1997-05-15 | 1997-11-11  |
+| Patterson Maria  | 1997-09-03 | 1998-03-02  |
+| Smith Karen      | 1998-03-05 | 1998-09-01  |
+| Thompson William | 1997-05-15 | 1997-11-11  |
+| Viescas Caleb    | 1998-02-16 | 1998-08-15  |
+| Viescas Carol    | 1997-11-19 | 1998-05-18  |
+| Wier Marianne    | 1998-02-02 | 1998-08-01  |
++------------------+------------+-------------+
+9 rows in set (0.01 sec)
+
+
+School Scheduling Database
+--------------------------
+1. “Give me a list of staff members, and show them in descending order
+of salary.”
+
+You can find the solution in CH05_Staff_List_By_Salary (27 rows).
+
+Solution:
+
+select concat(stflastname, ' ', stffirstname) as StaffMember, Salary
+from Staff
+order by Salary desc;
++-------------------+----------+
+| StaffMember       | Salary   |
++-------------------+----------+
+| Abolrous Sam      | 60000.00 |
+| Black Alastair    | 60000.00 |
+| Bonnicksen Joyce  | 60000.00 |
+
+....
+
+| Smith Tim         | 40000.00 |
+| Rosales III Joe   | 35000.00 |
+| Patterson Kathryn | 25000.00 |
++-------------------+----------+
+27 rows in set (0.00 sec)
+
+2. “Can you give me a staff member phone list?”
+
+You can find the solution in CH05_Staff_Member_Phone_List (27 rows).
+
+Solution:
+
+select concat(stflastname, ' ', stffirstname) as StaffMember,
+concat('(',stfareacode,')',' ',stfphonenumber) as 'Home Phone'
+from Staff order by StaffMember;
++-------------------+----------------+
+| StaffMember       | Home Phone     |
++-------------------+----------------+
+| Abolrous Sam      | (760) 555-2611 |
+| Black Alastair    | (206) 555-0039 |
+| Bonnicksen Joyce  | (425) 555-2726 |
+
+...
+
+| Viescas Suzanne   | (425) 555-2686 |
+| Waldal Deb        | (253) 555-2496 |
+| Wilson Jim        | (503) 555-2636 |
++-------------------+----------------+
+27 rows in set (0.00 sec)
+
+3. “List the names of all our students, and order them by the cities
+they live in.”
+
+You can find the solution in CH05_Students_By_City (18 rows).
+
+Solution:
+select concat(studlastname,' ', studfirstname) as Student,
+concat(studcity,',',studstate) as City
+from Students
+order by City;
++--------------------+-----------------+
+| Student            | City            |
++--------------------+-----------------+
+| Hallmark Elizabeth | Auburn,WA       |
+| Chavez George      | Bremerton,WA    |
+| Pundt Steve        | Dallas,TX       |
+
+....
+
+| Hartwig Doris      | Seattle,WA      |
+| Hamilton David     | Tacoma,WA       |
+| Wier Marianne      | Tacoma,WA       |
++--------------------+-----------------+
+18 rows in set (0.00 sec)
+
+
+Bowling League Database
+------------------------
+
+1. “Show next year’s tournament date for each tournament location.”
+
+You can find the solution in CH05_Next_Years_Tourney_Dates (20 rows).
+
+Solution:
+
+select TourneyLocation as Location, TourneyDate as 'This Year',
+date_add(tourneydate, interval 1 year) as 'Next Year'
+from Tournaments
+order by Location;
++--------------------+------------+------------+
+| Location           | This Year  | Next Year  |
++--------------------+------------+------------+
+| Acapulco Lanes     | 2012-12-04 | 2013-12-04 |
+| Acapulco Lanes     | 2012-10-16 | 2013-10-16 |
+| Bolero Lanes       | 2012-11-06 | 2013-11-06 |
+
+...
+
+| Totem Lanes        | 2012-10-09 | 2013-10-09 |
+| Totem Lanes        | 2012-11-27 | 2013-11-27 |
+| Totem Lanes        | 2013-08-16 | 2014-08-16 |
++--------------------+------------+------------+
+20 rows in set (0.00 sec)
+
+
+2. “List the name and phone number for each member of the league.”
+
+You can find the solution in CH05_Phone_List (32 rows).
+
+Solution:
+
+select concat(bowlerlastname,' ',bowlerfirstname) as Bowler, bowlerphonenumber as 'Home Phone' from Bowlers order by Bowler;
++--------------------+----------------+
+| Bowler             | Home Phone     |
++--------------------+----------------+
+| Black Alastair     | (206) 555-1189 |
+| Cunningham David   | (206) 555-8122 |
+| Ehrlich Zachary    | (206) 555-9857 |
+
+....
+
+| Viescas Michael    | (206) 881-5596 |
+| Viescas Stephanie  | (206) 882-8878 |
+| Viescas Suzanne    | (206) 881-5596 |
++--------------------+----------------+
+32 rows in set (0.00 sec)
+
+
+3. “Give me a listing of each team’s lineup.”
+
+(Hint: Base this query on the Bowlers table.)
+
+You can find the solution in CH05_Team_Lineups (32 rows).
+
+Solution:
+
+SELECT     TeamID, Concat(BowlerLastName, ', ', BowlerFirstName) AS Bowler
+FROM          Bowlers
+ORDER BY TeamID, Bowler;
+
++--------+---------------------+
+| TeamID | Bowler              |
++--------+---------------------+
+|      1 | Fournier, Barbara   |
+|      1 | Fournier, David     |
+|      1 | Kennedy, John       |
+
+....
+
+|      8 | Patterson, Rachel   |
+|      8 | Pundt, Steve        |
+|      8 | Rosales, Joe        |
++--------+---------------------+
+32 rows in set (0.00 sec)
