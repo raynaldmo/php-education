@@ -1,0 +1,4 @@
+Feb 17 21:17:01 ip-10-203-111-101 postfix/smtp[12313]: D94AF40352: to=<john.doe@anc.com>, relay=email-smtp.us-west-2.amazonaws.com[54.149.142.243]:25, delay=0.43, delays=0.04/0.08/0.12/0.18, dsn=2.0.0, status=sent (250 Ok 00000152f117e546-42256663-4b4c-428c-be03-a9cc6121e636-000000)
+Feb 19 21:17:01 ip-10-203-111-101 postfix/smtp[12313]: D94AF40352: to=<jane.doe@anc.com>, relay=email-smtp.us-west-2.amazonaws.com[54.149.142.243]:25, delay=0.43, delays=0.04/0.08/0.12/0.18, dsn=2.0.0, status=sent (250 Ok 00000152f117e546-42256663-4b4c-428c-be03-a9cc6121e636-000000)
+Sept 19 21:17:01 ip-10-203-111-101 postfix/smtp[12313]: D94AF40352: to=<john.doe@anc.com>, relay=email-smtp.us-west-2.amazonaws.com[54.149.142.243]:25, delay=0.43, delays=0.04/0.08/0.12/0.18, dsn=2.0.0, status=sent (250 Ok 00000152f117e546-42256663-4b4c-428c-be03-a9cc6121e636-000000)
+
