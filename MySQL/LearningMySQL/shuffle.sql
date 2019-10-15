@@ -1,0 +1,9 @@
+USE music;
+DROP TABLE IF EXISTS `shuffle`;
+CREATE TABLE shuffle (
+  artist_id SMALLINT(5) NOT NULL DEFAULT 0,
+  album_id SMALLINT(4) NOT NULL DEFAULT 0,
+  track_id SMALLINT(3) NOT NULL DEFAULT 0,
+  sequence_id SMALLINT(3) AUTO_INCREMENT NOT NULL,
+  PRIMARY KEY (sequence_id)
+);
