@@ -23,7 +23,7 @@ class Mailer2 implements Mailer {
 }
 
 class User {
-  protected $mailer = '';
+  private $mailer = '';
 
   public function __construct(Mailer $mailer) {
     $this->mailer = $mailer;

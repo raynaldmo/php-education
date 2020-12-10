@@ -63,10 +63,10 @@ $user1->setEditorPrivileges(['write text', 'read text', 'edit text', 'delete tex
 
 $userPriv = array_merge($user1->getAuthorPrivileges(), $user1->getEditorPrivileges());
 
-echo $user1->getUserName() . ' has the following privileges: ';
+echo $user1->getUserName() . " user has the following privileges:\n";
 
-foreach($userPriv as $priv) {
-  echo $priv . ', ';
+foreach($userPriv as $key => $val) {
+  echo $key . ' => '. $val . ', ';
 }
 
 echo PHP_EOL;

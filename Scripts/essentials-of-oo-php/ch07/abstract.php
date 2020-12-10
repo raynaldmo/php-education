@@ -35,6 +35,9 @@ class Viewer extends User {
 }
 
 $admin = new Admin();
-$admin->setUserName('Test');
+$admin->setUserName('Admin');
 echo $admin->getUserName() . ' is an ' . $admin->stateYourRole() . PHP_EOL;
 
+$viewer = new Viewer();
+$viewer->setUserName('Viewer');
+echo $viewer->getUserName() . ' is an ' . $admin->stateYourRole() . PHP_EOL;

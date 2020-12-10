@@ -12,6 +12,14 @@ class User {
   public function setName($username) {
     $this->username = $username;
   }
+
+  public function expressYourRole() {
+      return 'user';
+  }
+
+  public function sayHello() {
+		return 'Hello, ' . $this->expressYourRole() . ' ' .  $this->username . PHP_EOL;
+  }
 }
 
 class Admin extends User {
@@ -19,12 +27,12 @@ class Admin extends User {
     return 'admin';
   }
 
-  public function sayHello() {
-    return 'Hello, ' . $this->expressYourRole() .  $this->username . PHP_EOL;
-  }
 }
+
+$user = new User();
+$user->setName('User');
+echo $user->sayHello();
 
 $admin = new Admin();
 $admin->setName('Balthazar');
-
 echo $admin->sayHello();

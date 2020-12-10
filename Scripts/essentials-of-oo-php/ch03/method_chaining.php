@@ -9,7 +9,11 @@ ini_set('display_errors', 1);
 class User {
   public $firstName;
 
-  public function hello() {
+  public function __construct() {
+      echo '>> called constructor' . PHP_EOL;
+  }
+
+	public function hello() {
     echo "hello, " . $this->firstName;
     return $this;
   }

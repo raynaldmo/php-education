@@ -11,7 +11,7 @@ class User {
   private $age = 0;
 
   public function setName($name) {
-    if (strlen($name) < 3 || strlen($name > 20)) {
+    if (\strlen($name) < 3 || \strlen($name > 20)) {
       throw new Exception('Name must be longer than 3 character and less than 20 characters.');
     } else {
       // Trim the white spaces
@@ -45,7 +45,6 @@ $data = [
 
 
 $user = new User();
-
 foreach ($data as $val) {
    try {
      $user->setName($val[0]);
