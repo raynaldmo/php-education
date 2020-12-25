@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 $request = Request::createFromGlobals();
 
 $uri = $request->getPathInfo();
+$keys = $request->query->keys();
+
+
 if ('/' === $uri) {
   $response = list_action();
 } elseif ( (strpos($uri, '/show') !== FALSE) && $request->query->has('id')) {
